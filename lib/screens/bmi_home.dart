@@ -15,9 +15,6 @@ class _BmiHomeState extends State<BmiHome> {
     return SafeArea(
       child: Column(
         children: [
-          const SizedBox(
-            height: 8,
-          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

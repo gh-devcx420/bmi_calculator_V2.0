@@ -7,7 +7,7 @@ class GenderTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double h = MediaQuery.of(context).size.height;
+    //double h = MediaQuery.of(context).size.height;
     return Container(
       height: 200,
       decoration: BoxDecoration(
