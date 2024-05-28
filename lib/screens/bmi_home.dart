@@ -99,68 +99,94 @@ class _BmiHomeState extends State<BmiHome> {
           const SizedBox(
             height: 8,
           ),
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                vertical: 10,
-                horizontal: 15,
-              ),
-              height: 200,
-              decoration: BoxDecoration(
-                color: kPrimaryWhite,
-                borderRadius: BorderRadius.circular(18),
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        'Select Inputs',
-                        style: TextStyle(
-                          color: kPrimaryBlue,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
+          Container(
+            padding: const EdgeInsets.symmetric(
+              vertical: 10,
+              horizontal: 15,
+            ),
+            //height: 200,
+            decoration: BoxDecoration(
+              color: kPrimaryWhite,
+              borderRadius: BorderRadius.circular(18),
+            ),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      'Height',
+                      style: TextStyle(
+                        color: kPrimaryBlue,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
                       ),
-                      const Spacer(),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            inputHeightMetric = HeightMetric.feet;
-                          });
-                        },
-                        child: InputSelectorButton(
-                          inputButtonText: 'Ft',
-                          buttonColour: inputHeightMetric == HeightMetric.feet
-                              ? kPrimaryBlue
-                              : kPrimaryWhite,
-                          buttonTextColour:
-                              inputHeightMetric == HeightMetric.feet
-                                  ? kPrimaryWhite
-                                  : kPrimaryBlue,
-                        ),
+                    ),
+                    const Spacer(),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          inputHeightMetric = HeightMetric.feet;
+                        });
+                      },
+                      child: InputSelectorButton(
+                        inputButtonText: 'Ft',
+                        buttonColour: inputHeightMetric == HeightMetric.feet
+                            ? kPrimaryBlue
+                            : kPrimaryWhite,
+                        buttonTextColour: inputHeightMetric == HeightMetric.feet
+                            ? kPrimaryWhite
+                            : kPrimaryBlue,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            inputHeightMetric = HeightMetric.cms;
-                          });
-                        },
-                        child: InputSelectorButton(
-                          inputButtonText: 'Cm',
-                          buttonColour: inputHeightMetric == HeightMetric.cms
-                              ? kPrimaryBlue
-                              : kPrimaryWhite,
-                          buttonTextColour:
-                              inputHeightMetric == HeightMetric.cms
-                                  ? kPrimaryWhite
-                                  : kPrimaryBlue,
-                        ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          inputHeightMetric = HeightMetric.cms;
+                        });
+                      },
+                      child: InputSelectorButton(
+                        inputButtonText: 'Cm',
+                        buttonColour: inputHeightMetric == HeightMetric.cms
+                            ? kPrimaryBlue
+                            : kPrimaryWhite,
+                        buttonTextColour: inputHeightMetric == HeightMetric.cms
+                            ? kPrimaryWhite
+                            : kPrimaryBlue,
                       ),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                inputHeightMetric == HeightMetric.feet
+                    ? const Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          FeetInputSlider(
+                            sliderSIUnitLabel: 'Feet',
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          InchInputSlider(
+                            sliderSIUnitLabel: 'Inch',
+                          ),
+                        ],
+                      )
+                    : const InchInputSlider(
+                        sliderSIUnitLabel: 'Inch',
+                      ),
+                const SizedBox(
+                  height: 10,
+                ),
+              ],
             ),
           ),
         ],
