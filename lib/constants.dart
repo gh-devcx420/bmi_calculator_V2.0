@@ -42,51 +42,66 @@ TextStyle kCardTitleTextStyle = GoogleFonts.robotoCondensed(
 );
 TextStyle kSliderLabelTextStyleWhite = GoogleFonts.robotoCondensed(
   color: kPrimaryWhite,
-  fontSize: kCardSliderTextFontSize,
+  fontSize: kCardSliderLabelTextFontSize,
   fontWeight: FontWeight.w600,
 );
 TextStyle kSliderLabelTextStyleBlue = GoogleFonts.robotoCondensed(
   color: kPrimaryBlue,
-  fontSize: kCardSliderTextFontSize,
+  fontSize: kCardSliderLabelTextFontSize,
   fontWeight: FontWeight.w600,
 );
 TextStyle kResetButtonTextStyle = GoogleFonts.robotoCondensed(
   color: kPrimaryBlue,
-  fontSize: 22,
+  fontSize: 20,
   fontWeight: FontWeight.w600,
 );
 TextStyle kCalculateButtonTextStyle = GoogleFonts.robotoCondensed(
   color: kPrimaryBlue,
-  fontSize: 22,
+  fontSize: 20,
   fontWeight: FontWeight.w600,
 );
 
 /// 4) List of Constant Values used in the APP BAR.
-double kAppBarIconSize = 45;
+double kAppBarIconSize = 38;
 double kAppBarHelpIconSize = 24;
 
 /// 5) List of Constant Values used for the GENDER TILE.
-double kGenderTileHeight = 200;
+double kGenderTileHeightFactor = 0.20;
 double kGenderTileTitleFontSize = 18;
-BorderRadius kGenderTileCardRoundness = BorderRadius.circular(16);
+BorderRadius kGenderTileCardRoundness = BorderRadius.circular(20);
 
 /// 6) List of Constant Values used for the Card.
-double kCardTitleFontSize = 18;
-double kInputMetricSelectorButtonTextFontSize = 16;
-double kCardSliderTextFontSize = 14;
-double kCardInputSelectorButtonHeight = 34;
-double kCardInputSelectorButtonWidth = 60;
+// Card Border Roundness values.
+BorderRadius kCardRoundness = BorderRadius.circular(20);
 
-/// 7) List of Constant Values used for the HEIGHT SELECTION Card.
-// Height Card Border Roundness.
-BorderRadius kHeightSelectionCardRoundness = BorderRadius.circular(16);
-// Height Card Inside Padding values.
-double kHeightSelectionCardVerticalPadding = 20;
-double kHeightSelectionCardHorizontalPadding = 15;
-// Height Card Slider Label Button Size values.
-double kHeightSliderValueLabelHeight = 34;
-double kHeightSliderValueLabelWidth = 80;
-BorderRadius kHeightSliderValueLabelRoundness = BorderRadius.circular(17);
+// Card Padding size values.
+double kCardVerticalPadding = 10;
+double kCardHorizontalPadding = 10;
+
+// Card Title size values.
+double kCardTitleFontSize = 18;
+
+// Input Metric Selector Button Size values.
+BorderRadius kInputMetricSelectorButtonRoundness = BorderRadius.circular(14);
+
+double kInputMetricSelectorButtonTextFontSize = 16;
+double kCardInputMetricSelectorButtonHeightFactor = 0.038;
+double kCardInputMetricSelectorButtonWidthFactor = 0.16;
+
+// Slider Label Roundness
+BorderRadius kSliderLabelRoundness = BorderRadius.circular(14);
+
+// Slider Label Size values.
+double kSliderValueLabelHeightFactor = 0.038;
+double kSliderValueLabelWidthFactor = 0.2;
+double kCardSliderLabelTextFontSize = 14;
+
+/// 7) List of Constant Values used for the AGE SELECTION Card.
+// Age Slider Minimum & Maximum Values.
+double kAgeSliderMinValue = 0;
+double kAgeSliderMaxValue = 100;
+
+/// 8) List of Constant Values used for the HEIGHT SELECTION Card.
 // Height Slider Minimum & Maximum Values.
 double kFeetSliderMinValue = 0;
 double kFeetSliderMaxValue = 7;
@@ -95,42 +110,19 @@ double kInchSliderMaxValue = 11;
 double kCmsSliderMinValue = 0;
 double kCmsSliderMaxValue = 272;
 
-/// 8) List of Constant Values used for the WEIGHT SELECTION Card.
-// Weight Card Border Roundness.
-BorderRadius kWeightSelectionCardRoundness = BorderRadius.circular(16);
-// Weight Card Inside Padding values.
-double kWeightSelectionCardVerticalPadding = 20;
-double kWeightSelectionCardHorizontalPadding = 15;
-// Weight Card Slider Label Button Size values.
-double kWeightSliderValueLabelHeight = 34;
-double kWeightSliderValueLabelWidth = 80;
-BorderRadius kWeightSliderValueLabelRoundness = BorderRadius.circular(17);
+/// 9) List of Constant Values used for the WEIGHT SELECTION Card.
 // Weight Slider Minimum & Maximum Values.
 double kKgsSliderMinValue = 0;
 double kKgsSliderMaxValue = 160;
 double kLbsSliderMinValue = 0;
 double kLbsSliderMaxValue = 353;
 
-/// 9) List of Constant Values used for the AGE SELECTION Card.
-// Age Card Border Roundness.
-BorderRadius kAgeSelectionCardRoundness = BorderRadius.circular(16);
-// Age Card Inside Padding values.
-double kAgeSelectionCardVerticalPadding = 20;
-double kAgeSelectionCardHorizontalPadding = 15;
-// Age Card Slider Label Button Size values.
-double kAgeSliderValueLabelHeight = 34;
-double kAgeSliderValueLabelWidth = 80;
-BorderRadius kAgeSliderValueLabelRoundness = BorderRadius.circular(17);
-// Age Slider Minimum & Maximum Values.
-double kAgeSliderMinValue = 0;
-double kAgeSliderMaxValue = 100;
-
 /// 10) List of Constant values used for the CALCULATE BUTTON ROW.
 // Constant Values used in Reset Button.
-double kResetButtonHeight = 60;
+double kResetButtonHeight = 45;
 double kResetButtonWidth = 130;
 double kResetButtonIconSize = 30;
 // Constant Values used in Calculate Button.
-BorderRadius kResetButtonRoundness = BorderRadius.circular(30);
-double kCalculateButtonHeight = 60;
-BorderRadius kCalculateButtonRoundness = BorderRadius.circular(40);
+BorderRadius kResetButtonRoundness = BorderRadius.circular(18);
+double kCalculateButtonHeight = 45;
+BorderRadius kCalculateButtonRoundness = BorderRadius.circular(18);

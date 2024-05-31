@@ -13,8 +13,9 @@ class BMIAppBar extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        kHorizontalGap4,
         Icon(
-          Icons.calculate,
+          Icons.person_pin_outlined,
           color: kPrimaryWhite,
           size: kAppBarIconSize,
         ),
@@ -89,9 +90,82 @@ class _GenderSelectionCardRowState extends State<GenderSelectionCardRow> {
   }
 }
 
-/// 3) Card Widget to accept input HEIGHT values.
+/// 3) Card Widget to accept input AGE values.
+class AgeSelectionCard extends StatefulWidget {
+  const AgeSelectionCard({
+    required this.ageSliderValue,
+    required this.updateAgeSliderValue,
+    super.key,
+  });
+
+  final double ageSliderValue;
+  final Function(double) updateAgeSliderValue;
+
+  @override
+  State<AgeSelectionCard> createState() => _AgeSelectionCardState();
+}
+
+class _AgeSelectionCardState extends State<AgeSelectionCard> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        vertical: kCardVerticalPadding,
+        horizontal: kCardHorizontalPadding,
+      ),
+      decoration: BoxDecoration(
+        color: kPrimaryWhite,
+        borderRadius: kCardRoundness,
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              kHorizontalGap10,
+              Text(
+                'Age',
+                style: kCardTitleTextStyle,
+              ),
+              const Spacer(),
+              InputMetricSelectorButton(
+                inputButtonText: 'Years',
+                buttonColour: kPrimaryBlue,
+                buttonTextColour: kPrimaryWhite,
+              ),
+            ],
+          ),
+          CommonSlider(
+            sliderSIUnitLabel: 'Years',
+            sliderValue: widget.ageSliderValue,
+            sliderMinValue: kAgeSliderMinValue,
+            sliderMaxValue: kAgeSliderMaxValue,
+            updateSliderValue: widget.updateAgeSliderValue,
+          ),
+          kVerticalGap8,
+        ],
+      ),
+    );
+  }
+}
+
+/// 4) Card Widget to accept input HEIGHT values.
 class HeightSelectionCard extends StatefulWidget {
-  const HeightSelectionCard({super.key});
+  const HeightSelectionCard({
+    required this.feetSliderValue,
+    required this.updateFeetSliderValue,
+    required this.inchSliderValue,
+    required this.updateInchSliderValue,
+    required this.cmsSliderValue,
+    required this.updateCmsSliderValue,
+    super.key,
+  });
+
+  final double feetSliderValue;
+  final Function(double) updateFeetSliderValue;
+  final double inchSliderValue;
+  final Function(double) updateInchSliderValue;
+  final double cmsSliderValue;
+  final Function(double) updateCmsSliderValue;
 
   @override
   State<HeightSelectionCard> createState() => _HeightSelectionCardState();
@@ -104,12 +178,12 @@ class _HeightSelectionCardState extends State<HeightSelectionCard> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
-        vertical: kHeightSelectionCardVerticalPadding,
-        horizontal: kHeightSelectionCardHorizontalPadding,
+        vertical: kCardVerticalPadding,
+        horizontal: kCardHorizontalPadding,
       ),
       decoration: BoxDecoration(
         color: kPrimaryWhite,
-        borderRadius: kHeightSelectionCardRoundness,
+        borderRadius: kCardRoundness,
       ),
       child: Column(
         children: [
@@ -159,28 +233,51 @@ class _HeightSelectionCardState extends State<HeightSelectionCard> {
               ? Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    const FeetInputSlider(
+                    CommonSlider(
                       sliderSIUnitLabel: 'Feet',
+                      sliderValue: widget.feetSliderValue,
+                      sliderMinValue: kFeetSliderMinValue,
+                      sliderMaxValue: kFeetSliderMaxValue,
+                      updateSliderValue: widget.updateFeetSliderValue,
                     ),
                     kVerticalGap4,
-                    const InchInputSlider(
+                    CommonSlider(
                       sliderSIUnitLabel: 'Inches',
+                      sliderValue: widget.inchSliderValue,
+                      sliderMinValue: kInchSliderMinValue,
+                      sliderMaxValue: kInchSliderMaxValue,
+                      updateSliderValue: widget.updateInchSliderValue,
                     ),
                   ],
                 )
-              : const CmsInputSlider(
+              : CommonSlider(
                   sliderSIUnitLabel: 'Cms',
+                  sliderValue: widget.cmsSliderValue,
+                  sliderMinValue: kCmsSliderMinValue,
+                  sliderMaxValue: kCmsSliderMaxValue,
+                  updateSliderValue: widget.updateCmsSliderValue,
                 ),
-          kVerticalGap10,
+          kVerticalGap8,
         ],
       ),
     );
   }
 }
 
-/// 4) Card Widget to accept input WEIGHT values.
+/// 5) Card Widget to accept input WEIGHT values.
 class WeightSelectionCard extends StatefulWidget {
-  const WeightSelectionCard({super.key});
+  const WeightSelectionCard({
+    required this.kgsSliderValue,
+    required this.updateKgsSliderValue,
+    required this.lbsSliderValue,
+    required this.updateLbsSliderValue,
+    super.key,
+  });
+
+  final double kgsSliderValue;
+  final Function(double) updateKgsSliderValue;
+  final double lbsSliderValue;
+  final Function(double) updateLbsSliderValue;
 
   @override
   State<WeightSelectionCard> createState() => _WeightSelectionCardState();
@@ -193,12 +290,12 @@ class _WeightSelectionCardState extends State<WeightSelectionCard> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
-        vertical: kWeightSelectionCardVerticalPadding,
-        horizontal: kWeightSelectionCardHorizontalPadding,
+        vertical: kCardVerticalPadding,
+        horizontal: kCardHorizontalPadding,
       ),
       decoration: BoxDecoration(
         color: kPrimaryWhite,
-        borderRadius: kWeightSelectionCardRoundness,
+        borderRadius: kCardRoundness,
       ),
       child: Column(
         children: [
@@ -245,58 +342,21 @@ class _WeightSelectionCardState extends State<WeightSelectionCard> {
             ],
           ),
           inputWeightMetric == WeightMetric.kgs
-              ? const KgsInputSlider(
+              ? CommonSlider(
                   sliderSIUnitLabel: 'Kgs',
+                  sliderValue: widget.kgsSliderValue,
+                  sliderMinValue: kKgsSliderMinValue,
+                  sliderMaxValue: kKgsSliderMaxValue,
+                  updateSliderValue: widget.updateKgsSliderValue,
                 )
-              : const LbsInputSlider(
-                  sliderSIUnitLabel: 'Pounds',
+              : CommonSlider(
+                  sliderSIUnitLabel: 'Lbs',
+                  sliderValue: widget.lbsSliderValue,
+                  sliderMinValue: kLbsSliderMinValue,
+                  sliderMaxValue: kLbsSliderMaxValue,
+                  updateSliderValue: widget.updateLbsSliderValue,
                 ),
-          kVerticalGap10,
-        ],
-      ),
-    );
-  }
-}
-
-/// 5) Card Widget to accept input AGE values.
-class AgeSelectionCard extends StatefulWidget {
-  const AgeSelectionCard({super.key});
-
-  @override
-  State<AgeSelectionCard> createState() => _AgeSelectionCardState();
-}
-
-class _AgeSelectionCardState extends State<AgeSelectionCard> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        vertical: kAgeSelectionCardVerticalPadding,
-        horizontal: kAgeSelectionCardHorizontalPadding,
-      ),
-      decoration: BoxDecoration(
-        color: kPrimaryWhite,
-        borderRadius: kAgeSelectionCardRoundness,
-      ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              kHorizontalGap10,
-              Text(
-                'Age',
-                style: kCardTitleTextStyle,
-              ),
-              const Spacer(),
-              InputMetricSelectorButton(
-                inputButtonText: 'Years',
-                buttonColour: kPrimaryBlue,
-                buttonTextColour: kPrimaryWhite,
-              ),
-            ],
-          ),
-          const AgeInputSlider(sliderSIUnitLabel: 'Years'),
-          kVerticalGap10,
+          kVerticalGap8,
         ],
       ),
     );
