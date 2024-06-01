@@ -1,6 +1,6 @@
 # bmi_calculator
 
-A simple Body Mass Index calculator
+A simple Body Mass Index Calculator with updated UI & reduced codebase sizes.
 
 ## Getting Started
 

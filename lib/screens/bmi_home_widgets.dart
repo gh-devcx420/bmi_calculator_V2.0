@@ -1,52 +1,27 @@
-import 'package:bmi_calculator/common_widgets/widgets.dart';
+import 'package:bmi_calculator/bmi_calculator.dart';
 import 'package:bmi_calculator/constants.dart';
+import 'package:bmi_calculator/enums.dart';
+import 'package:bmi_calculator/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 
-import '../enums.dart';
-
-/// 1) APP BAR for BMI Calculator HomeScreen.
-class BMIAppBar extends StatelessWidget {
-  const BMIAppBar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        kHorizontalGap4,
-        Icon(
-          Icons.person_pin_outlined,
-          color: kPrimaryWhite,
-          size: kAppBarIconSize,
-        ),
-        kHorizontalGap8,
-        Text(
-          'BMI Calculator',
-          style: kAppBarTitleTextStyle,
-        ),
-        const Spacer(),
-        Icon(
-          Icons.help,
-          color: kPrimaryWhite,
-          size: kAppBarHelpIconSize,
-        ),
-        kHorizontalGap8,
-      ],
-    );
-  }
-}
-
-/// 2) Card Widget to Select the GENDER values.
+/// 1) Card Row Widget to Select the GENDER values.
 class GenderSelectionCardRow extends StatefulWidget {
-  const GenderSelectionCardRow({super.key});
+  const GenderSelectionCardRow({
+    required this.currentGenderSelection,
+    required this.selectMaleCard,
+    required this.selectFemaleCard,
+    super.key,
+  });
+
+  final Gender currentGenderSelection;
+  final Function() selectMaleCard;
+  final Function() selectFemaleCard;
 
   @override
   State<GenderSelectionCardRow> createState() => _GenderSelectionCardRowState();
 }
 
 class _GenderSelectionCardRowState extends State<GenderSelectionCardRow> {
-  Gender selectedGender = Gender.none;
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -54,13 +29,9 @@ class _GenderSelectionCardRowState extends State<GenderSelectionCardRow> {
       children: [
         Expanded(
           child: GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedGender = Gender.male;
-              });
-            },
+            onTap: widget.selectMaleCard,
             child: GenderTile(
-              tileColour: selectedGender == Gender.male
+              tileColour: widget.currentGenderSelection == Gender.male
                   ? kPrimaryWhite
                   : kSecondaryWhite,
               tileIcon: Icons.male_rounded,
@@ -71,13 +42,9 @@ class _GenderSelectionCardRowState extends State<GenderSelectionCardRow> {
         kHorizontalGap10,
         Expanded(
           child: GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedGender = Gender.female;
-              });
-            },
+            onTap: widget.selectFemaleCard,
             child: GenderTile(
-              tileColour: selectedGender == Gender.female
+              tileColour: widget.currentGenderSelection == Gender.female
                   ? kPrimaryWhite
                   : kSecondaryWhite,
               tileIcon: Icons.female_rounded,
@@ -90,7 +57,7 @@ class _GenderSelectionCardRowState extends State<GenderSelectionCardRow> {
   }
 }
 
-/// 3) Card Widget to accept input AGE values.
+/// 2) Card Widget to accept input AGE values.
 class AgeSelectionCard extends StatefulWidget {
   const AgeSelectionCard({
     required this.ageSliderValue,
@@ -148,7 +115,7 @@ class _AgeSelectionCardState extends State<AgeSelectionCard> {
   }
 }
 
-/// 4) Card Widget to accept input HEIGHT values.
+/// 3) Card Widget to accept input HEIGHT values.
 class HeightSelectionCard extends StatefulWidget {
   const HeightSelectionCard({
     required this.feetSliderValue,
@@ -172,8 +139,6 @@ class HeightSelectionCard extends StatefulWidget {
 }
 
 class _HeightSelectionCardState extends State<HeightSelectionCard> {
-  HeightMetric inputHeightMetric = HeightMetric.feet;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -264,7 +229,7 @@ class _HeightSelectionCardState extends State<HeightSelectionCard> {
   }
 }
 
-/// 5) Card Widget to accept input WEIGHT values.
+/// 4) Card Widget to accept input WEIGHT values.
 class WeightSelectionCard extends StatefulWidget {
   const WeightSelectionCard({
     required this.kgsSliderValue,
@@ -284,8 +249,6 @@ class WeightSelectionCard extends StatefulWidget {
 }
 
 class _WeightSelectionCardState extends State<WeightSelectionCard> {
-  WeightMetric inputWeightMetric = WeightMetric.kgs;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -363,9 +326,16 @@ class _WeightSelectionCardState extends State<WeightSelectionCard> {
   }
 }
 
-/// 6) Row Widget to display RESET & CALCULATE Buttons.
+/// 5) Row Widget to display RESET & CALCULATE Buttons.
 class CalculateAndResetButtons extends StatefulWidget {
-  const CalculateAndResetButtons({super.key});
+  const CalculateAndResetButtons({
+    required this.resetSliderValues,
+    required this.currentInputValues,
+    super.key,
+  });
+
+  final Function() resetSliderValues;
+  final CurrentInputValues currentInputValues;
 
   @override
   State<CalculateAndResetButtons> createState() =>
@@ -378,10 +348,14 @@ class _CalculateAndResetButtonsState extends State<CalculateAndResetButtons> {
     return Row(
       mainAxisSize: MainAxisSize.max,
       children: [
-        const ResetButton(),
+        ResetButton(
+          resetSliderValues: widget.resetSliderValues,
+        ),
         kHorizontalGap8,
-        const Expanded(
-          child: CalculateResultsButton(),
+        Expanded(
+          child: CalculateResultsButton(
+            currentInputValues: currentInputValues,
+          ),
         ),
       ],
     );

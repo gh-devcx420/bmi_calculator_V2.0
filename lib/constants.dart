@@ -40,7 +40,7 @@ TextStyle kCardTitleTextStyle = GoogleFonts.robotoCondensed(
   fontSize: kCardTitleFontSize,
   fontWeight: FontWeight.w600,
 );
-TextStyle kSliderLabelTextStyleWhite = GoogleFonts.robotoCondensed(
+TextStyle kLabelChipTextStyleWhite = GoogleFonts.robotoCondensed(
   color: kPrimaryWhite,
   fontSize: kCardSliderLabelTextFontSize,
   fontWeight: FontWeight.w600,
@@ -62,11 +62,11 @@ TextStyle kCalculateButtonTextStyle = GoogleFonts.robotoCondensed(
 );
 
 /// 4) List of Constant Values used in the APP BAR.
-double kAppBarIconSize = 38;
+double kAppBarIconSize = 35;
 double kAppBarHelpIconSize = 24;
 
 /// 5) List of Constant Values used for the GENDER TILE.
-double kGenderTileHeightFactor = 0.20;
+double kGenderTileHeightFactor = 0.22;
 double kGenderTileTitleFontSize = 18;
 BorderRadius kGenderTileCardRoundness = BorderRadius.circular(20);
 
@@ -88,12 +88,18 @@ double kInputMetricSelectorButtonTextFontSize = 16;
 double kCardInputMetricSelectorButtonHeightFactor = 0.038;
 double kCardInputMetricSelectorButtonWidthFactor = 0.16;
 
-// Slider Label Roundness
+// Slider Label Roundness.
 BorderRadius kSliderLabelRoundness = BorderRadius.circular(14);
 
+// Label Chips Outer Margin values.
+double kLabelChipVerticalMargin = 0;
+double kLabelChipHorizontalMargin = 4;
+
+// Label Chips Inner Padding values.
+double kLabelChipVerticalPadding = 6;
+double kLabelChipHorizontalPadding = 12;
+
 // Slider Label Size values.
-double kSliderValueLabelHeightFactor = 0.038;
-double kSliderValueLabelWidthFactor = 0.2;
 double kCardSliderLabelTextFontSize = 14;
 
 /// 7) List of Constant Values used for the AGE SELECTION Card.
