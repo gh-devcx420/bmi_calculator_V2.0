@@ -6,6 +6,9 @@ Color kPrimaryWhite = Colors.white;
 Color kSecondaryWhite = const Color(0xc7ffffff);
 Color kPrimaryBlue = const Color(0xff001894);
 Color kSecondaryBlue = const Color(0xff000c42);
+Color kBMIUnderweightColour = const Color(0xffffaf2e);
+Color kBMINormalColour = const Color(0xff3ac91d);
+Color kBMIOverWeightColour = const Color(0xff980000);
 
 /// 2) GAP Constants used throughout the APP.
 SizedBox kVerticalGap4 = const SizedBox(
@@ -35,19 +38,19 @@ TextStyle kAppBarTitleTextStyle = GoogleFonts.robotoCondensed(
   fontSize: 24,
   fontWeight: FontWeight.w600,
 );
-TextStyle kCardTitleTextStyle = GoogleFonts.robotoCondensed(
+TextStyle kCardHeadingTextStyle = GoogleFonts.robotoCondensed(
   color: kPrimaryBlue,
   fontSize: kCardTitleFontSize,
   fontWeight: FontWeight.w600,
 );
 TextStyle kLabelChipTextStyleWhite = GoogleFonts.robotoCondensed(
   color: kPrimaryWhite,
-  fontSize: kCardSliderLabelTextFontSize,
+  fontSize: kLabelChipTextFontSize,
   fontWeight: FontWeight.w600,
 );
 TextStyle kSliderLabelTextStyleBlue = GoogleFonts.robotoCondensed(
   color: kPrimaryBlue,
-  fontSize: kCardSliderLabelTextFontSize,
+  fontSize: kLabelChipTextFontSize,
   fontWeight: FontWeight.w600,
 );
 TextStyle kResetButtonTextStyle = GoogleFonts.robotoCondensed(
@@ -65,70 +68,84 @@ TextStyle kCalculateButtonTextStyle = GoogleFonts.robotoCondensed(
 double kAppBarIconSize = 35;
 double kAppBarHelpIconSize = 24;
 
-/// 5) List of Constant Values used for the GENDER TILE.
+/// 5) List of Constant Values used in the GENDER TILE.
 double kGenderTileHeightFactor = 0.22;
 double kGenderTileTitleFontSize = 18;
 BorderRadius kGenderTileCardRoundness = BorderRadius.circular(20);
 
-/// 6) List of Constant Values used for the Card.
-// Card Border Roundness values.
+/// 6) List of Constant Values used in the CARD WIDGET.
+// Card Widget's Border Roundness value.
 BorderRadius kCardRoundness = BorderRadius.circular(20);
-
-// Card Padding size values.
+// Card Widget's Vertical & Horizontal Padding values.
 double kCardVerticalPadding = 10;
 double kCardHorizontalPadding = 10;
-
-// Card Title size values.
+// Card Widget's Card Title Font Size values.
 double kCardTitleFontSize = 18;
-
-// Input Metric Selector Button Size values.
-BorderRadius kInputMetricSelectorButtonRoundness = BorderRadius.circular(14);
-
+// Card Widget's Input Metric Selector Button Size Roundness value.
+BorderRadius kInputMetricSelectorButtonRoundness = BorderRadius.circular(16);
+// Card Widget's Input Metric Selector Button Vertical & Horizontal Padding values.
+double kInputMetricSelectorButtonVerticalPadding = 4;
+double kInputMetricSelectorButtonHorizontalPadding = 12;
+// Card Widget's Input Metric Selector Button Text Font Size value.
 double kInputMetricSelectorButtonTextFontSize = 16;
-double kCardInputMetricSelectorButtonHeightFactor = 0.038;
-double kCardInputMetricSelectorButtonWidthFactor = 0.16;
-
-// Slider Label Roundness.
-BorderRadius kSliderLabelRoundness = BorderRadius.circular(14);
-
-// Label Chips Outer Margin values.
+// Card Widget's Value Label Chip Roundness.
+BorderRadius kValueLabelChipRoundness = BorderRadius.circular(16);
+// Card Widget's Value Label Chip Outer Margin values.
 double kLabelChipVerticalMargin = 0;
 double kLabelChipHorizontalMargin = 4;
-
-// Label Chips Inner Padding values.
+// Card Widget's Value Label Chip Inner Padding values.
 double kLabelChipVerticalPadding = 6;
 double kLabelChipHorizontalPadding = 12;
+// Card Widget's Value Label Chip Text Font Size values.
+double kLabelChipTextFontSize = 14;
 
-// Slider Label Size values.
-double kCardSliderLabelTextFontSize = 14;
-
-/// 7) List of Constant Values used for the AGE SELECTION Card.
-// Age Slider Minimum & Maximum Values.
+/// 7) List of Constant Values used in the AGE,HEIGHT & WEIGHT SELECTION CARD.
+// Age (Years) Slider Minimum & Maximum Values.
 double kAgeSliderMinValue = 0;
 double kAgeSliderMaxValue = 100;
 
-/// 8) List of Constant Values used for the HEIGHT SELECTION Card.
-// Height Slider Minimum & Maximum Values.
+/// 8) List of Constant Values used in the HEIGHT SELECTION Card.
+// Height (Feet) Slider Minimum & Maximum Values.
 double kFeetSliderMinValue = 0;
-double kFeetSliderMaxValue = 7;
+double kFeetSliderMaxValue = 9;
+// Height (Inches) Slider Minimum & Maximum Values.
 double kInchSliderMinValue = 0;
 double kInchSliderMaxValue = 11;
+// Height (Centimeters) Slider Minimum & Maximum Values.
 double kCmsSliderMinValue = 0;
 double kCmsSliderMaxValue = 272;
 
-/// 9) List of Constant Values used for the WEIGHT SELECTION Card.
-// Weight Slider Minimum & Maximum Values.
+/// 9) List of Constant Values used in the WEIGHT SELECTION Card.
+// Weight (Kilograms) Slider Minimum & Maximum Values.
 double kKgsSliderMinValue = 0;
 double kKgsSliderMaxValue = 160;
+// Weight (Pounds) Slider Minimum & Maximum Values.
 double kLbsSliderMinValue = 0;
 double kLbsSliderMaxValue = 353;
 
-/// 10) List of Constant values used for the CALCULATE BUTTON ROW.
-// Constant Values used in Reset Button.
+/// 10) List of Constant values used in the CALCULATE BUTTON ROW.
+// Reset Button's Roundness values.
+BorderRadius kResetButtonRoundness = BorderRadius.circular(22);
+// Reset Button's Height & Width values.
 double kResetButtonHeight = 45;
 double kResetButtonWidth = 130;
+// Reset Button's Icon Size values.
 double kResetButtonIconSize = 30;
-// Constant Values used in Calculate Button.
-BorderRadius kResetButtonRoundness = BorderRadius.circular(18);
+// Calculate Button's Roundness values.
+BorderRadius kCalculateButtonRoundness = BorderRadius.circular(22);
+// Calculate Button's Height & Width values.
 double kCalculateButtonHeight = 45;
-BorderRadius kCalculateButtonRoundness = BorderRadius.circular(18);
+double kCalculateButtonWidth = 45;
+
+/// 11) List of Constant values used in the BMI Result Label.
+// BMI Result Label Widget's Border Roundness values.
+BorderRadius kBMIResultLabelRoundness = BorderRadius.circular(22);
+// BMI Result Label Widget's Vertical & Horizontal Padding values.
+double kBMIResultLabelVerticalPadding = 4;
+double kBMIResultLabelHorizontalPadding = 16;
+
+/// 12) List of Constant values used in the inference of BMI Results.
+// BMI Underweight, Normal ,Overweight Range values.
+double kBMIUnderWeightLimit = 18.4;
+double kBMINormalLimit = 24.9;
+double kBMIOverWeightLimit = 50;

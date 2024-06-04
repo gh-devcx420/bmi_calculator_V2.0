@@ -1,9 +1,40 @@
-import 'package:bmi_calculator/bmi_calculator.dart';
+import 'dart:math';
+
 import 'package:bmi_calculator/constants.dart';
 import 'package:bmi_calculator/enums.dart';
-import 'package:bmi_calculator/screens/bmi_home_widgets.dart';
+import 'package:bmi_calculator/widgets/bmi_home_widgets.dart';
 import 'package:bmi_calculator/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
+
+class CurrentInputValues {
+  Gender selectedGender;
+  double ageSliderValue;
+  double feetSliderValue;
+  double inchSliderValue;
+  double cmsSliderValue;
+  double kgsSliderValue;
+  double lbsSliderValue;
+  double bmiResult;
+  Color bmiResultColour;
+  String bmiResultInference;
+
+  CurrentInputValues({
+    this.selectedGender = Gender.none,
+    this.ageSliderValue = 0,
+    this.feetSliderValue = 0,
+    this.inchSliderValue = 0,
+    this.cmsSliderValue = 0,
+    this.kgsSliderValue = 0,
+    this.lbsSliderValue = 0,
+    this.bmiResult = 0,
+    this.bmiResultColour = Colors.grey,
+    this.bmiResultInference = '',
+  });
+}
+
+CurrentInputValues currentInputValueObject = CurrentInputValues();
+HeightMetric inputHeightMetric = HeightMetric.feet;
+WeightMetric inputWeightMetric = WeightMetric.kgs;
 
 class BmiHome extends StatefulWidget {
   const BmiHome({
@@ -17,61 +48,87 @@ class BmiHome extends StatefulWidget {
 class _BmiHomeState extends State<BmiHome> {
   void selectMaleCard() {
     setState(() {
-      currentInputValues.selectedGender = Gender.male;
+      currentInputValueObject.selectedGender = Gender.male;
     });
   }
 
   void selectFemaleCard() {
     setState(() {
-      currentInputValues.selectedGender = Gender.female;
+      currentInputValueObject.selectedGender = Gender.female;
     });
   }
 
   void updateAgeSliderValue(double newValue) {
     setState(() {
-      currentInputValues.ageSliderValue = newValue;
+      currentInputValueObject.ageSliderValue = newValue;
     });
   }
 
   void updateFeetSliderValue(double newValue) {
     setState(() {
-      currentInputValues.feetSliderValue = newValue;
+      currentInputValueObject.feetSliderValue = newValue;
     });
   }
 
   void updateInchSliderValue(double newValue) {
     setState(() {
-      currentInputValues.inchSliderValue = newValue;
+      currentInputValueObject.inchSliderValue = newValue;
     });
   }
 
   void updateCmsSliderValue(double newValue) {
     setState(() {
-      currentInputValues.cmsSliderValue = newValue;
+      currentInputValueObject.cmsSliderValue = newValue;
     });
   }
 
   void updateKgsSliderValue(double newValue) {
     setState(() {
-      currentInputValues.kgsSliderValue = newValue;
+      currentInputValueObject.kgsSliderValue = newValue;
     });
   }
 
   void updateLbsSliderValue(double newValue) {
     setState(() {
-      currentInputValues.lbsSliderValue = newValue;
+      currentInputValueObject.lbsSliderValue = newValue;
     });
   }
 
   void resetSliderValues() {
     setState(() {
-      currentInputValues.selectedGender = Gender.none;
-      currentInputValues.ageSliderValue = 0;
-      currentInputValues.feetSliderValue = 0;
-      currentInputValues.inchSliderValue = 0;
-      currentInputValues.cmsSliderValue = 0;
-      currentInputValues.kgsSliderValue = 0;
-      currentInputValues.lbsSliderValue = 0;
+      currentInputValueObject.selectedGender = Gender.none;
+      currentInputValueObject.ageSliderValue = 0;
+      currentInputValueObject.feetSliderValue = 0;
+      currentInputValueObject.inchSliderValue = 0;
+      currentInputValueObject.cmsSliderValue = 0;
+      currentInputValueObject.kgsSliderValue = 0;
+      currentInputValueObject.lbsSliderValue = 0;
+    });
+  }
+
+  void calculateResults() {
+    setState(() {
+      double heightInMetersFromFeetAndInches = 0;
+      heightInMetersFromFeetAndInches =
+          (currentInputValueObject.feetSliderValue * 0.3048) +
+              (currentInputValueObject.inchSliderValue * 0.0254);
+      currentInputValueObject.bmiResult =
+          currentInputValueObject.kgsSliderValue /
+              pow(
+                heightInMetersFromFeetAndInches,
+                2,
+              );
+
+      if (currentInputValueObject.bmiResult <= kBMIUnderWeightLimit) {
+        currentInputValueObject.bmiResultColour = kBMIUnderweightColour;
+        currentInputValueObject.bmiResultInference = 'Underweight';
+      } else if (currentInputValueObject.bmiResult <= kBMINormalLimit) {
+        currentInputValueObject.bmiResultColour = kBMINormalColour;
+        currentInputValueObject.bmiResultInference = 'Normal';
+      } else {
+        currentInputValueObject.bmiResultColour = kBMIOverWeightColour;
+        currentInputValueObject.bmiResultInference = 'Overweight';
+      }
     });
   }
 
@@ -91,33 +148,26 @@ class _BmiHomeState extends State<BmiHome> {
         GenderSelectionCardRow(
           selectMaleCard: selectMaleCard,
           selectFemaleCard: selectFemaleCard,
-          currentGenderSelection: currentInputValues.selectedGender,
         ),
         kVerticalGap10,
 
         /// Age selection Card Widget.
         AgeSelectionCard(
-          ageSliderValue: currentInputValues.ageSliderValue,
           updateAgeSliderValue: updateAgeSliderValue,
         ),
         kVerticalGap10,
 
         /// Height selection Card Widget.
         HeightSelectionCard(
-          feetSliderValue: currentInputValues.feetSliderValue,
           updateFeetSliderValue: updateFeetSliderValue,
-          inchSliderValue: currentInputValues.inchSliderValue,
           updateInchSliderValue: updateInchSliderValue,
-          cmsSliderValue: currentInputValues.cmsSliderValue,
           updateCmsSliderValue: updateCmsSliderValue,
         ),
         kVerticalGap10,
 
         /// Weight selection Card Widget.
         WeightSelectionCard(
-          kgsSliderValue: currentInputValues.kgsSliderValue,
           updateKgsSliderValue: updateKgsSliderValue,
-          lbsSliderValue: currentInputValues.lbsSliderValue,
           updateLbsSliderValue: updateLbsSliderValue,
         ),
 
@@ -127,7 +177,7 @@ class _BmiHomeState extends State<BmiHome> {
         /// Calculate & Reset Button Row.
         CalculateAndResetButtons(
           resetSliderValues: resetSliderValues,
-          currentInputValues: currentInputValues,
+          calculateResults: calculateResults,
         ),
         kVerticalGap10,
       ],
