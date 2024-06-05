@@ -33,7 +33,7 @@ class CurrentInputValues {
 }
 
 CurrentInputValues currentInputValueObject = CurrentInputValues();
-HeightMetric inputHeightMetric = HeightMetric.feet;
+HeightMetric inputHeightMetric = HeightMetric.feetinches;
 WeightMetric inputWeightMetric = WeightMetric.kgs;
 
 class BmiHome extends StatefulWidget {
@@ -108,16 +108,45 @@ class _BmiHomeState extends State<BmiHome> {
 
   void calculateResults() {
     setState(() {
-      double heightInMetersFromFeetAndInches = 0;
-      heightInMetersFromFeetAndInches =
+      double heightInMetersFromFeetAndInches =
           (currentInputValueObject.feetSliderValue * 0.3048) +
               (currentInputValueObject.inchSliderValue * 0.0254);
-      currentInputValueObject.bmiResult =
-          currentInputValueObject.kgsSliderValue /
+      double heightInMetersFromCms =
+          currentInputValueObject.cmsSliderValue / 100;
+      double weightInKgsFromPounds =
+          currentInputValueObject.lbsSliderValue / 2.20462;
+      if (inputHeightMetric == HeightMetric.feetinches) {
+        if (inputWeightMetric == WeightMetric.kgs) {
+          currentInputValueObject.bmiResult =
+              currentInputValueObject.kgsSliderValue /
+                  pow(
+                    heightInMetersFromFeetAndInches,
+                    2,
+                  );
+        } else {
+          currentInputValueObject.bmiResult = weightInKgsFromPounds /
               pow(
                 heightInMetersFromFeetAndInches,
                 2,
               );
+        }
+      } else {
+        if (inputWeightMetric == WeightMetric.kgs) {
+          currentInputValueObject.bmiResult =
+              currentInputValueObject.kgsSliderValue /
+                  pow(
+                    heightInMetersFromCms,
+                    2,
+                  );
+        } else {
+          print(weightInKgsFromPounds);
+          currentInputValueObject.bmiResult = weightInKgsFromPounds /
+              pow(
+                heightInMetersFromCms,
+                2,
+              );
+        }
+      }
 
       if (currentInputValueObject.bmiResult <= kBMIUnderWeightLimit) {
         currentInputValueObject.bmiResultColour = kBMIUnderweightColour;
@@ -125,6 +154,10 @@ class _BmiHomeState extends State<BmiHome> {
       } else if (currentInputValueObject.bmiResult <= kBMINormalLimit) {
         currentInputValueObject.bmiResultColour = kBMINormalColour;
         currentInputValueObject.bmiResultInference = 'Normal';
+      } else if (currentInputValueObject.bmiResult <=
+          kBMISlightlyOverWeightLimit) {
+        currentInputValueObject.bmiResultColour = kBMISlightlyOverWeightColour;
+        currentInputValueObject.bmiResultInference = 'Slightly Overweight';
       } else {
         currentInputValueObject.bmiResultColour = kBMIOverWeightColour;
         currentInputValueObject.bmiResultInference = 'Overweight';
@@ -137,7 +170,7 @@ class _BmiHomeState extends State<BmiHome> {
     return Column(
       children: [
         /// AppBar Row contains App Title & App Settings.
-        const CommonAppBar(
+        const BMIAppBar(
           leadingIcon: Icons.person_pin_outlined,
           appBarLabel: 'BMI Calculator',
           actionsIcon: Icons.help,
@@ -175,7 +208,7 @@ class _BmiHomeState extends State<BmiHome> {
         const Spacer(),
 
         /// Calculate & Reset Button Row.
-        CalculateAndResetButtons(
+        CalculateAndResetButtonsRow(
           resetSliderValues: resetSliderValues,
           calculateResults: calculateResults,
         ),

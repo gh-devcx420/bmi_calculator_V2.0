@@ -18,7 +18,7 @@ class _ResultScreenState extends State<ResultScreen> {
         currentScreen: SafeArea(
           child: Column(
             children: [
-              const CommonAppBar(
+              const BMIAppBar(
                 leadingIcon: Icons.bar_chart,
                 appBarLabel: 'Results',
                 actionsIcon: null,
