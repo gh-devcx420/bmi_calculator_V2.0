@@ -176,7 +176,7 @@ class BMITextDisplayChip extends StatelessWidget {
       child: Center(
         child: Text(
           chipText,
-          style: kLabelChipTextStyleWhite,
+          style: kChipTextStyleWhite,
         ),
       ),
     );
@@ -215,12 +215,12 @@ class BMIValueDisplayChip extends StatelessWidget {
           children: [
             Text(
               chipValue.toStringAsFixed(0),
-              style: kLabelChipTextStyleWhite,
+              style: kChipTextStyleWhite,
             ),
             kHorizontalGap4,
             Text(
               chipText,
-              style: kLabelChipTextStyleWhite,
+              style: kChipTextStyleWhite,
             ),
           ],
         ),

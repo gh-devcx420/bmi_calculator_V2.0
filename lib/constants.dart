@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-///  1) List of Constant COLOUR VALUES used in the APP.
+/// 1) List of Constant COLOUR VALUES used in the APP.
 Color kPrimaryWhite = Colors.white;
 Color kSecondaryWhite = const Color(0xc7ffffff);
 Color kPrimaryBlue = const Color(0xff001894);
 Color kSecondaryBlue = const Color(0xff000c42);
-// Color kBMIMaleGenderColour = const Color(0xff1ba1f1);
-// Color kBMIFemaleGenderColour = const Color(0xffef20dc);
-// Color kBMIAgeChipColour = const Color(0xff4e16f5);
-// Color kBMIHeightChipColour = const Color(0xff854f02);
-// Color kBMIWeightChipColour = const Color(0xff5aa648);
 Color kBMIErrorColour = const Color(0xffc91010);
 Color kBMIUnderweightColour = const Color(0xffe8e63c);
 Color kBMINormalColour = const Color(0xff3ac91d);
@@ -24,14 +19,12 @@ SizedBox kVerticalGap4 = const SizedBox(
 SizedBox kHorizontalGap4 = const SizedBox(
   width: 4,
 );
-
 SizedBox kVerticalGap8 = const SizedBox(
   height: 8,
 );
 SizedBox kHorizontalGap8 = const SizedBox(
   width: 8,
 );
-
 SizedBox kVerticalGap10 = const SizedBox(
   height: 10,
 );
@@ -40,43 +33,54 @@ SizedBox kHorizontalGap10 = const SizedBox(
 );
 
 /// 3) List of TEXT STYLES used throughout the APP.
+// Text Style used in the APP BAR Title.
 TextStyle kAppBarTitleTextStyle = GoogleFonts.robotoCondensed(
   color: kPrimaryWhite,
   fontSize: 24,
   fontWeight: FontWeight.w600,
 );
 
+// Text Style used in the GENDER TILE Title.
 TextStyle kGenderTileTextStyle = GoogleFonts.robotoCondensed(
   color: kPrimaryBlue,
   fontSize: kGenderTileTitleFontSize,
   fontWeight: FontWeight.w800,
 );
 
+// Text Style used in the CARD Title.
 TextStyle kCardHeadingTextStyle = GoogleFonts.robotoCondensed(
   color: kPrimaryBlue,
   fontSize: kCardTitleFontSize,
   fontWeight: FontWeight.w600,
 );
-TextStyle kLabelChipTextStyleWhite = GoogleFonts.robotoCondensed(
+
+// Text Style used in the Chip Text.
+TextStyle kChipTextStyleWhite = GoogleFonts.robotoCondensed(
   color: kPrimaryWhite,
   fontSize: kLabelChipTextFontSize,
   fontWeight: FontWeight.w600,
 );
-TextStyle kSliderLabelTextStyleBlue = GoogleFonts.robotoCondensed(
+TextStyle kChipTextStyleBlue = GoogleFonts.robotoCondensed(
   color: kPrimaryBlue,
   fontSize: kLabelChipTextFontSize,
   fontWeight: FontWeight.w600,
 );
+
+// Text Style used in the RESET button.
 TextStyle kResetButtonTextStyle = GoogleFonts.robotoCondensed(
   color: kPrimaryBlue,
   fontSize: 20,
   fontWeight: FontWeight.w600,
 );
-TextStyle kCalculateButtonLabelStyle = GoogleFonts.robotoCondensed(
+
+// Text Style used in the Calculate button.
+TextStyle kCalculateButtonTextStyle = GoogleFonts.robotoCondensed(
   color: kPrimaryBlue,
   fontSize: 20,
   fontWeight: FontWeight.w600,
 );
+
+// Text Style used in the Alert Dialogue Box.
 TextStyle kAlertDialogueHeadingTextStyle = GoogleFonts.robotoCondensed(
   color: kPrimaryBlue,
   fontSize: kAlertDialogueHeadingFontSize,
@@ -94,12 +98,16 @@ TextStyle kBMIResultLabelTextStyle = GoogleFonts.robotoCondensed(
 );
 
 /// 4) List of Constant Values used in the APP BAR.
+// App Bar Icon Size values.
 double kAppBarIconSize = 35;
 double kAppBarHelpIconSize = 24;
 
 /// 5) List of Constant Values used in the GENDER TILE.
+// Gender Tile Widget's Height Factor
 double kGenderTileHeightFactor = 0.22;
+// Gender Tile Widget's Title Font Size value.
 double kGenderTileTitleFontSize = 18;
+// Gender Tile Widget's Title Roundness value.
 BorderRadius kGenderTileCardRoundness = BorderRadius.circular(20);
 
 /// 6) List of Constant Values used in the CARD WIDGET.
@@ -134,21 +142,21 @@ double kAgeSliderMinValue = 0;
 double kAgeSliderMaxValue = 100;
 
 /// 8) List of Constant Values used in the HEIGHT SELECTION Card.
-// Height (Feet) Slider Minimum & Maximum Values.
+// Height (Feet) Slider Minimum & Maximum values.
 double kFeetSliderMinValue = 0;
 double kFeetSliderMaxValue = 9;
-// Height (Inches) Slider Minimum & Maximum Values.
+// Height (Inches) Slider Minimum & Maximum values.
 double kInchSliderMinValue = 0;
 double kInchSliderMaxValue = 11;
-// Height (Centimeters) Slider Minimum & Maximum Values.
+// Height (Centimeters) Slider Minimum & Maximum values.
 double kCmsSliderMinValue = 0;
 double kCmsSliderMaxValue = 272;
 
 /// 9) List of Constant Values used in the WEIGHT SELECTION Card.
-// Weight (Kilograms) Slider Minimum & Maximum Values.
+// Weight (Kilograms) Slider Minimum & Maximum values.
 double kKgsSliderMinValue = 0;
 double kKgsSliderMaxValue = 160;
-// Weight (Pounds) Slider Minimum & Maximum Values.
+// Weight (Pounds) Slider Minimum & Maximum values.
 double kLbsSliderMinValue = 0;
 double kLbsSliderMaxValue = 250;
 
@@ -172,24 +180,24 @@ double kAlertDialogueCardVerticalPadding = 16;
 double kAlertDialogueCardHorizontalPadding = 16;
 // Alert Dialogue Card's Roundness.
 BorderRadius kAlertDialogueRoundness = BorderRadius.circular(22);
-// Alert Dialogue Card's Heading Font Size
+// Alert Dialogue Card's Heading Font Size.
 double kAlertDialogueHeadingFontSize = 18;
-// Alert Dialogue Card's Error Text Font Size
+// Alert Dialogue Card's Error Text Font Size.
 double kAlertDialogueErrorFontSize = 14;
 // Alert Dialogue Card's Call-to-Action Button Vertical & Horizontal Padding values.
 double kAlertDialogueOkButtonVerticalPadding = 10;
 double kAlertDialogueOkButtonHorizontalPadding = 50;
 
-/// 12) List of Constant values used in the BMI Result Label.
-// BMI Result Label Widget's Border Roundness values.
-BorderRadius kBMIResultLabelRoundness = BorderRadius.circular(22);
-// BMI Result Label Widget's Vertical & Horizontal Padding values.
-double kBMIResultLabelVerticalPadding = 4;
-double kBMIResultLabelHorizontalPadding = 16;
-
-/// 13) List of Constant values used in the inference of BMI Results.
+/// 12) List of Constant values used in the inference of BMI Results.
 // BMI Underweight, Normal ,Overweight Range values.
 double kBMIUnderWeightLimit = 18.4;
 double kBMINormalLimit = 24.9;
 double kBMISlightlyOverWeightLimit = 39.9;
 double kBMIOverWeightLimit = 60;
+
+/// 13) List of Constant values used in the BMI Result Label.
+// BMI Result Label Widget's Border Roundness values.
+BorderRadius kBMIResultLabelRoundness = BorderRadius.circular(22);
+// BMI Result Label Widget's Vertical & Horizontal Padding values.
+double kBMIResultLabelVerticalPadding = 4;
+double kBMIResultLabelHorizontalPadding = 16;

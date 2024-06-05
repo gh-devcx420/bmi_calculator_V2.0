@@ -163,7 +163,7 @@ class BMICalculateButton extends StatelessWidget {
         child: Center(
           child: Text(
             'Calculate BMI',
-            style: kCalculateButtonLabelStyle,
+            style: kCalculateButtonTextStyle,
           ),
         ),
       ),
