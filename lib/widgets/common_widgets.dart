@@ -1,12 +1,9 @@
 import 'package:bmi_calculator/constants.dart';
-import 'package:bmi_calculator/enums.dart';
-import 'package:bmi_calculator/screens/bmi_home.dart';
-import 'package:bmi_calculator/screens/result_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:syncfusion_flutter_gauges/gauges.dart';
 
-/// 1) Common APP BACKGROUND GRADIENT Container for BMI Calculator App.
+///BMI Common Widgets: These Widgets are customizable.
+// 1) General APP BACKGROUND GRADIENT Container for BMI Calculator App.
 class BMIBackgroundGradientContainer extends StatelessWidget {
   const BMIBackgroundGradientContainer({
     required this.currentScreen,
@@ -34,9 +31,9 @@ class BMIBackgroundGradientContainer extends StatelessWidget {
   }
 }
 
-/// 2) Common APP BAR for BMI Calculator App.
-class CommonAppBar extends StatelessWidget {
-  const CommonAppBar({
+// 2) General APP BAR for BMI Calculator App.
+class BMIAppBar extends StatelessWidget {
+  const BMIAppBar({
     required this.leadingIcon,
     required this.actionsIcon,
     required this.appBarLabel,
@@ -75,9 +72,9 @@ class CommonAppBar extends StatelessWidget {
   }
 }
 
-/// 3) Tile Widget to Display and Accept GENDER Selection.
-class GenderTile extends StatelessWidget {
-  const GenderTile({
+// 3) General Tile Widget to Select, Accept & Display GENDER Selection.
+class BMITile extends StatelessWidget {
+  const BMITile({
     super.key,
     required this.tileColour,
     required this.tileIcon,
@@ -107,11 +104,7 @@ class GenderTile extends StatelessWidget {
           kVerticalGap10,
           Text(
             tileLabel,
-            style: GoogleFonts.robotoCondensed(
-              color: kPrimaryBlue,
-              fontSize: kGenderTileTitleFontSize,
-              fontWeight: FontWeight.w800,
-            ),
+            style: kGenderTileTextStyle,
           ),
         ],
       ),
@@ -119,9 +112,9 @@ class GenderTile extends StatelessWidget {
   }
 }
 
-/// 4) Button Widget to Select SI Unit of HEIGHT & WEIGHT to input the values.
-class InputMetricSelectorButton extends StatelessWidget {
-  const InputMetricSelectorButton({
+// 4) General Button Widget to Select SI Unit of HEIGHT & WEIGHT SI Units respectively,.
+class BMIInputMetricSelectorButton extends StatelessWidget {
+  const BMIInputMetricSelectorButton({
     super.key,
     required this.inputButtonText,
     required this.buttonColour,
@@ -157,14 +150,16 @@ class InputMetricSelectorButton extends StatelessWidget {
   }
 }
 
-/// 5) LABEL CHIP WIDGET to Display the selected GENDER values.
-class TextLabel extends StatelessWidget {
-  const TextLabel({
-    required this.labelChipSIText,
+// 5) TEXT DISPLAY CHIP WIDGET to Display the selected input values in Text Only.
+class BMITextDisplayChip extends StatelessWidget {
+  const BMITextDisplayChip({
+    required this.chipText,
+    required this.chipBackgroundColour,
     super.key,
   });
 
-  final String labelChipSIText;
+  final String chipText;
+  final Color chipBackgroundColour;
 
   @override
   Widget build(BuildContext context) {
@@ -175,12 +170,12 @@ class TextLabel extends StatelessWidget {
       ),
       margin: EdgeInsets.fromLTRB(0, 0, kLabelChipHorizontalMargin, 0),
       decoration: BoxDecoration(
-        color: kPrimaryBlue,
+        color: chipBackgroundColour,
         borderRadius: kValueLabelChipRoundness,
       ),
       child: Center(
         child: Text(
-          labelChipSIText,
+          chipText,
           style: kLabelChipTextStyleWhite,
         ),
       ),
@@ -188,16 +183,18 @@ class TextLabel extends StatelessWidget {
   }
 }
 
-/// 6) LABEL CHIP WIDGET to Display the selected AGE,HEIGHT & WEIGHT values.
-class ValueTextLabel extends StatelessWidget {
-  const ValueTextLabel({
-    required this.valueLabelChipValue,
-    required this.valueLabelChipText,
+// 6) TEXT DISPLAY CHIP WIDGET to Display the selected input values in Number & SI Unit Text.
+class BMIValueDisplayChip extends StatelessWidget {
+  const BMIValueDisplayChip({
+    required this.chipValue,
+    required this.chipText,
+    required this.chipColour,
     super.key,
   });
 
-  final double valueLabelChipValue;
-  final String valueLabelChipText;
+  final double chipValue;
+  final String chipText;
+  final Color chipColour;
 
   @override
   Widget build(BuildContext context) {
@@ -208,7 +205,7 @@ class ValueTextLabel extends StatelessWidget {
       ),
       margin: EdgeInsets.fromLTRB(0, 0, kLabelChipHorizontalMargin, 0),
       decoration: BoxDecoration(
-        color: kPrimaryBlue,
+        color: chipColour,
         borderRadius: kValueLabelChipRoundness,
       ),
       child: Center(
@@ -217,12 +214,12 @@ class ValueTextLabel extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              valueLabelChipValue.toStringAsFixed(0),
+              chipValue.toStringAsFixed(0),
               style: kLabelChipTextStyleWhite,
             ),
             kHorizontalGap4,
             Text(
-              valueLabelChipText,
+              chipText,
               style: kLabelChipTextStyleWhite,
             ),
           ],
@@ -232,9 +229,9 @@ class ValueTextLabel extends StatelessWidget {
   }
 }
 
-/// 7) SLIDER WIDGET to Set the value of AGE, HEIGHT & WEIGHT Values.
-class CommonSlider extends StatefulWidget {
-  const CommonSlider({
+// 7) SLIDER WIDGET to Set the value of AGE, HEIGHT or WEIGHT Values.
+class BMISlider extends StatefulWidget {
+  const BMISlider({
     required this.sliderSIUnitLabel,
     required this.sliderMinValue,
     required this.sliderMaxValue,
@@ -250,18 +247,19 @@ class CommonSlider extends StatefulWidget {
   final Function(double) updateSliderValue;
 
   @override
-  State<CommonSlider> createState() => CommonSliderState();
+  State<BMISlider> createState() => BMISliderState();
 }
 
-class CommonSliderState extends State<CommonSlider> {
+class BMISliderState extends State<BMISlider> {
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.max,
       children: [
-        ValueTextLabel(
-          valueLabelChipValue: widget.sliderValue,
-          valueLabelChipText: widget.sliderSIUnitLabel,
+        BMIValueDisplayChip(
+          chipValue: widget.sliderValue,
+          chipText: widget.sliderSIUnitLabel,
+          chipColour: kPrimaryBlue,
         ),
         Expanded(
           child: SliderTheme(
@@ -289,168 +287,53 @@ class CommonSliderState extends State<CommonSlider> {
   }
 }
 
-/// 8) BUTTON WIDGET to RESET the selected Input Values.
-class BMIIconTextButton extends StatelessWidget {
-  const BMIIconTextButton({
-    required this.resetSliderValues,
+// 8) General BMI Button to perform onTap actions.
+class BMIButton extends StatelessWidget {
+  const BMIButton({
+    required this.onButtonTap,
+    required this.buttonColour,
+    required this.buttonRoundness,
+    required this.buttonLabelText,
+    required this.buttonLabelTextColour,
+    required this.buttonLabelTextFontSize,
+    required this.buttonHorizontalPadding,
+    required this.buttonVerticalPadding,
     super.key,
   });
 
-  final Function() resetSliderValues;
+  final Function() onButtonTap;
+  final Color buttonColour;
+  final double buttonRoundness;
+  final String buttonLabelText;
+  final Color buttonLabelTextColour;
+  final double buttonLabelTextFontSize;
+  final double buttonHorizontalPadding;
+  final double buttonVerticalPadding;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: resetSliderValues,
+      onTap: onButtonTap,
       child: Container(
-        height: kResetButtonHeight,
-        decoration: BoxDecoration(
-          color: kPrimaryWhite,
-          borderRadius: kResetButtonRoundness,
+        padding: EdgeInsets.symmetric(
+          horizontal: buttonHorizontalPadding,
+          vertical: buttonVerticalPadding,
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.redo,
-              color: kPrimaryBlue,
-              size: kResetButtonIconSize,
-            ),
-            kHorizontalGap8,
-            Text(
-              'Reset',
-              style: kResetButtonTextStyle,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// 9) BUTTON WIDGET to CALCULATE the RESULTS.
-class BMITextButton extends StatelessWidget {
-  const BMITextButton({
-    required this.calculateResults,
-    super.key,
-  });
-
-  final Function() calculateResults;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        if (currentInputValueObject.selectedGender != Gender.none &&
-            currentInputValueObject.ageSliderValue != 0 &&
-            (currentInputValueObject.feetSliderValue != 0 ||
-                currentInputValueObject.inchSliderValue != 0 ||
-                currentInputValueObject.cmsSliderValue != 0) &&
-            (currentInputValueObject.kgsSliderValue != 0 ||
-                currentInputValueObject.lbsSliderValue != 0)) {
-          calculateResults();
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const ResultScreen(),
-            ),
-          );
-        }
-      },
-      child: Container(
-        height: kCalculateButtonHeight,
-        width: kCalculateButtonWidth,
         decoration: BoxDecoration(
-          color: kPrimaryWhite,
-          borderRadius: kCalculateButtonRoundness,
+          color: buttonColour,
+          borderRadius: BorderRadius.circular(buttonRoundness),
         ),
         child: Center(
           child: Text(
-            'Calculate Results',
-            style: kCalculateButtonTextStyle,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-/// 10) LABEL WIDGET to Display the BMI RESULTS SCORE.
-class BMIResultLabel extends StatelessWidget {
-  const BMIResultLabel({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          padding: EdgeInsets.symmetric(
-            vertical: kBMIResultLabelVerticalPadding,
-            horizontal: kBMIResultLabelHorizontalPadding,
-          ),
-          decoration: BoxDecoration(
-            color: currentInputValueObject.bmiResultColour,
-            borderRadius: kBMIResultLabelRoundness,
-          ),
-          height: 40,
-          child: Center(
-            child: Text(
-              currentInputValueObject.bmiResult.toStringAsFixed(2),
-              style: GoogleFonts.robotoCondensed(
-                color: kPrimaryWhite,
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-              ),
+            buttonLabelText,
+            style: TextStyle(
+              color: buttonLabelTextColour,
+              fontSize: buttonLabelTextFontSize,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ),
-      ],
-    );
-  }
-}
-
-/// 11) GAUGE WIDGET to Display the BMI RESULTS SCORE in a visibly neat Gauge Scale.
-class BMIResultGauge extends StatelessWidget {
-  const BMIResultGauge({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SfLinearGauge(
-      showLabels: false,
-      showTicks: false,
-      showAxisTrack: false,
-      minimum: 0,
-      maximum: kBMIOverWeightLimit,
-      ranges: [
-        LinearGaugeRange(
-          startValue: 0,
-          endValue: kBMIUnderWeightLimit,
-          color: kBMIUnderweightColour,
-        ),
-        LinearGaugeRange(
-          startValue: kBMIUnderWeightLimit,
-          endValue: kBMINormalLimit,
-          color: kBMINormalColour,
-        ),
-        LinearGaugeRange(
-          startValue: kBMINormalLimit,
-          endValue: kBMIOverWeightLimit,
-          color: kBMIOverWeightColour,
-        ),
-      ],
-      markerPointers: [
-        LinearShapePointer(
-          value: currentInputValueObject.bmiResult,
-          color: kPrimaryBlue,
-          enableAnimation: true,
-          animationDuration: 1500,
-          animationType: LinearAnimationType.easeInCirc,
-          position: LinearElementPosition.outside,
-        ),
-      ],
+      ),
     );
   }
 }

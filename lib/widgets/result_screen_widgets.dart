@@ -1,6 +1,7 @@
 import 'package:bmi_calculator/constants.dart';
 import 'package:bmi_calculator/enums.dart';
 import 'package:bmi_calculator/screens/bmi_home.dart';
+import 'package:bmi_calculator/widgets/basic_widgets.dart';
 import 'package:bmi_calculator/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -43,44 +44,49 @@ class _ResultCardState extends State<ResultCard> {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-                TextLabel(
-                  labelChipSIText: currentInputValueObject.selectedGender ==
+                BMITextDisplayChip(
+                  chipText: currentInputValueObject.selectedGender ==
                           Gender.male
                       ? 'Male'
                       : currentInputValueObject.selectedGender == Gender.female
                           ? 'Female'
                           : 'None',
+                  chipBackgroundColour: kPrimaryBlue,
                 ),
-                ValueTextLabel(
-                  valueLabelChipValue: currentInputValueObject.ageSliderValue,
-                  valueLabelChipText: 'Years',
+                BMIValueDisplayChip(
+                  chipValue: currentInputValueObject.ageSliderValue,
+                  chipText: 'Years',
+                  chipColour: kPrimaryBlue,
                 ),
-                if (inputHeightMetric == HeightMetric.feet)
-                  ValueTextLabel(
-                    valueLabelChipValue:
-                        currentInputValueObject.feetSliderValue,
-                    valueLabelChipText: 'Feet',
+                if (inputHeightMetric == HeightMetric.feetinches)
+                  BMIValueDisplayChip(
+                    chipValue: currentInputValueObject.feetSliderValue,
+                    chipText: 'Feet',
+                    chipColour: kPrimaryBlue,
                   ),
-                if (inputHeightMetric == HeightMetric.feet)
-                  ValueTextLabel(
-                    valueLabelChipValue:
-                        currentInputValueObject.inchSliderValue,
-                    valueLabelChipText: 'Inches',
+                if (inputHeightMetric == HeightMetric.feetinches)
+                  BMIValueDisplayChip(
+                    chipValue: currentInputValueObject.inchSliderValue,
+                    chipText: 'Inches',
+                    chipColour: kPrimaryBlue,
                   ),
                 if (inputHeightMetric == HeightMetric.cms)
-                  ValueTextLabel(
-                    valueLabelChipValue: currentInputValueObject.cmsSliderValue,
-                    valueLabelChipText: 'Cms',
+                  BMIValueDisplayChip(
+                    chipValue: currentInputValueObject.cmsSliderValue,
+                    chipText: 'Cms',
+                    chipColour: kPrimaryBlue,
                   ),
                 if (inputWeightMetric == WeightMetric.kgs)
-                  ValueTextLabel(
-                    valueLabelChipValue: currentInputValueObject.kgsSliderValue,
-                    valueLabelChipText: 'Kgs',
+                  BMIValueDisplayChip(
+                    chipValue: currentInputValueObject.kgsSliderValue,
+                    chipText: 'Kgs',
+                    chipColour: kPrimaryBlue,
                   ),
                 if (inputWeightMetric == WeightMetric.pounds)
-                  ValueTextLabel(
-                    valueLabelChipValue: currentInputValueObject.lbsSliderValue,
-                    valueLabelChipText: 'Lbs',
+                  BMIValueDisplayChip(
+                    chipValue: currentInputValueObject.lbsSliderValue,
+                    chipText: 'Lbs',
+                    chipColour: kPrimaryBlue,
                   ),
               ],
             ),
@@ -116,6 +122,7 @@ class _ResultCardState extends State<ResultCard> {
             ],
           ),
           kVerticalGap8,
+          kVerticalGap4,
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,

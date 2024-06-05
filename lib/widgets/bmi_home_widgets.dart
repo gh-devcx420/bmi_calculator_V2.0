@@ -1,6 +1,7 @@
 import 'package:bmi_calculator/constants.dart';
 import 'package:bmi_calculator/enums.dart';
 import 'package:bmi_calculator/screens/bmi_home.dart';
+import 'package:bmi_calculator/widgets/basic_widgets.dart';
 import 'package:bmi_calculator/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,7 @@ class GenderSelectionCardRow extends StatelessWidget {
         Expanded(
           child: GestureDetector(
             onTap: selectMaleCard,
-            child: GenderTile(
+            child: BMITile(
               tileColour: currentInputValueObject.selectedGender == Gender.male
                   ? kPrimaryWhite
                   : kSecondaryWhite,
@@ -36,7 +37,7 @@ class GenderSelectionCardRow extends StatelessWidget {
         Expanded(
           child: GestureDetector(
             onTap: selectFemaleCard,
-            child: GenderTile(
+            child: BMITile(
               tileColour:
                   currentInputValueObject.selectedGender == Gender.female
                       ? kPrimaryWhite
@@ -81,14 +82,14 @@ class AgeSelectionCard extends StatelessWidget {
                 style: kCardHeadingTextStyle,
               ),
               const Spacer(),
-              InputMetricSelectorButton(
+              BMIInputMetricSelectorButton(
                 inputButtonText: 'Years',
                 buttonColour: kPrimaryBlue,
                 buttonTextColour: kPrimaryWhite,
               ),
             ],
           ),
-          CommonSlider(
+          BMISlider(
             sliderSIUnitLabel: 'Years',
             sliderValue: currentInputValueObject.ageSliderValue,
             sliderMinValue: kAgeSliderMinValue,
@@ -144,16 +145,16 @@ class _HeightSelectionCardState extends State<HeightSelectionCard> {
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    inputHeightMetric = HeightMetric.feet;
+                    inputHeightMetric = HeightMetric.feetinches;
                     currentInputValueObject.cmsSliderValue = 0;
                   });
                 },
-                child: InputMetricSelectorButton(
+                child: BMIInputMetricSelectorButton(
                   inputButtonText: 'Feet',
-                  buttonColour: inputHeightMetric == HeightMetric.feet
+                  buttonColour: inputHeightMetric == HeightMetric.feetinches
                       ? kPrimaryBlue
                       : kPrimaryWhite,
-                  buttonTextColour: inputHeightMetric == HeightMetric.feet
+                  buttonTextColour: inputHeightMetric == HeightMetric.feetinches
                       ? kPrimaryWhite
                       : kPrimaryBlue,
                 ),
@@ -166,7 +167,7 @@ class _HeightSelectionCardState extends State<HeightSelectionCard> {
                     currentInputValueObject.inchSliderValue = 0;
                   });
                 },
-                child: InputMetricSelectorButton(
+                child: BMIInputMetricSelectorButton(
                   inputButtonText: 'Cms',
                   buttonColour: inputHeightMetric == HeightMetric.cms
                       ? kPrimaryBlue
@@ -178,11 +179,11 @@ class _HeightSelectionCardState extends State<HeightSelectionCard> {
               ),
             ],
           ),
-          inputHeightMetric == HeightMetric.feet
+          inputHeightMetric == HeightMetric.feetinches
               ? Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    CommonSlider(
+                    BMISlider(
                       sliderSIUnitLabel: 'Feet',
                       sliderValue: currentInputValueObject.feetSliderValue,
                       sliderMinValue: kFeetSliderMinValue,
@@ -190,7 +191,7 @@ class _HeightSelectionCardState extends State<HeightSelectionCard> {
                       updateSliderValue: widget.updateFeetSliderValue,
                     ),
                     kVerticalGap4,
-                    CommonSlider(
+                    BMISlider(
                       sliderSIUnitLabel: 'Inches',
                       sliderValue: currentInputValueObject.inchSliderValue,
                       sliderMinValue: kInchSliderMinValue,
@@ -199,7 +200,7 @@ class _HeightSelectionCardState extends State<HeightSelectionCard> {
                     ),
                   ],
                 )
-              : CommonSlider(
+              : BMISlider(
                   sliderSIUnitLabel: 'Cms',
                   sliderValue: currentInputValueObject.cmsSliderValue,
                   sliderMinValue: kCmsSliderMinValue,
@@ -257,7 +258,7 @@ class _WeightSelectionCardState extends State<WeightSelectionCard> {
                     currentInputValueObject.lbsSliderValue = 0;
                   });
                 },
-                child: InputMetricSelectorButton(
+                child: BMIInputMetricSelectorButton(
                   inputButtonText: 'Kgs',
                   buttonColour: inputWeightMetric == WeightMetric.kgs
                       ? kPrimaryBlue
@@ -274,7 +275,7 @@ class _WeightSelectionCardState extends State<WeightSelectionCard> {
                     currentInputValueObject.kgsSliderValue = 0;
                   });
                 },
-                child: InputMetricSelectorButton(
+                child: BMIInputMetricSelectorButton(
                   inputButtonText: 'lbs',
                   buttonColour: inputWeightMetric == WeightMetric.pounds
                       ? kPrimaryBlue
@@ -287,14 +288,14 @@ class _WeightSelectionCardState extends State<WeightSelectionCard> {
             ],
           ),
           inputWeightMetric == WeightMetric.kgs
-              ? CommonSlider(
+              ? BMISlider(
                   sliderSIUnitLabel: 'Kgs',
                   sliderValue: currentInputValueObject.kgsSliderValue,
                   sliderMinValue: kKgsSliderMinValue,
                   sliderMaxValue: kKgsSliderMaxValue,
                   updateSliderValue: widget.updateKgsSliderValue,
                 )
-              : CommonSlider(
+              : BMISlider(
                   sliderSIUnitLabel: 'Lbs',
                   sliderValue: currentInputValueObject.lbsSliderValue,
                   sliderMinValue: kLbsSliderMinValue,
@@ -309,8 +310,8 @@ class _WeightSelectionCardState extends State<WeightSelectionCard> {
 }
 
 /// 5) Row Widget to display RESET & CALCULATE Buttons.
-class CalculateAndResetButtons extends StatelessWidget {
-  const CalculateAndResetButtons({
+class CalculateAndResetButtonsRow extends StatelessWidget {
+  const CalculateAndResetButtonsRow({
     required this.resetSliderValues,
     required this.calculateResults,
     super.key,
@@ -325,16 +326,14 @@ class CalculateAndResetButtons extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       children: [
         Expanded(
-          child: BMIIconTextButton(
-            // currentInputValueObject: currentInputValueObject,
+          child: BMIResetButton(
             resetSliderValues: resetSliderValues,
           ),
         ),
         kHorizontalGap8,
         Expanded(
           flex: 2,
-          child: BMITextButton(
-            //currentInputValues: currentInputValueObject,
+          child: BMICalculateButton(
             calculateResults: calculateResults,
           ),
         ),

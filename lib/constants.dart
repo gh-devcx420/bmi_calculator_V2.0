@@ -6,9 +6,16 @@ Color kPrimaryWhite = Colors.white;
 Color kSecondaryWhite = const Color(0xc7ffffff);
 Color kPrimaryBlue = const Color(0xff001894);
 Color kSecondaryBlue = const Color(0xff000c42);
-Color kBMIUnderweightColour = const Color(0xffffaf2e);
+// Color kBMIMaleGenderColour = const Color(0xff1ba1f1);
+// Color kBMIFemaleGenderColour = const Color(0xffef20dc);
+// Color kBMIAgeChipColour = const Color(0xff4e16f5);
+// Color kBMIHeightChipColour = const Color(0xff854f02);
+// Color kBMIWeightChipColour = const Color(0xff5aa648);
+Color kBMIErrorColour = const Color(0xffc91010);
+Color kBMIUnderweightColour = const Color(0xffe8e63c);
 Color kBMINormalColour = const Color(0xff3ac91d);
-Color kBMIOverWeightColour = const Color(0xff980000);
+Color kBMISlightlyOverWeightColour = const Color(0xffffaf2e);
+Color kBMIOverWeightColour = const Color(0xffab1b07);
 
 /// 2) GAP Constants used throughout the APP.
 SizedBox kVerticalGap4 = const SizedBox(
@@ -38,6 +45,13 @@ TextStyle kAppBarTitleTextStyle = GoogleFonts.robotoCondensed(
   fontSize: 24,
   fontWeight: FontWeight.w600,
 );
+
+TextStyle kGenderTileTextStyle = GoogleFonts.robotoCondensed(
+  color: kPrimaryBlue,
+  fontSize: kGenderTileTitleFontSize,
+  fontWeight: FontWeight.w800,
+);
+
 TextStyle kCardHeadingTextStyle = GoogleFonts.robotoCondensed(
   color: kPrimaryBlue,
   fontSize: kCardTitleFontSize,
@@ -58,8 +72,23 @@ TextStyle kResetButtonTextStyle = GoogleFonts.robotoCondensed(
   fontSize: 20,
   fontWeight: FontWeight.w600,
 );
-TextStyle kCalculateButtonTextStyle = GoogleFonts.robotoCondensed(
+TextStyle kCalculateButtonLabelStyle = GoogleFonts.robotoCondensed(
   color: kPrimaryBlue,
+  fontSize: 20,
+  fontWeight: FontWeight.w600,
+);
+TextStyle kAlertDialogueHeadingTextStyle = GoogleFonts.robotoCondensed(
+  color: kPrimaryBlue,
+  fontSize: kAlertDialogueHeadingFontSize,
+  fontWeight: FontWeight.w600,
+);
+TextStyle kAlertDialogueErrorTextStyle = GoogleFonts.robotoCondensed(
+  color: kBMIErrorColour,
+  fontSize: kAlertDialogueErrorFontSize,
+  fontWeight: FontWeight.w600,
+);
+TextStyle kBMIResultLabelTextStyle = GoogleFonts.robotoCondensed(
+  color: kPrimaryWhite,
   fontSize: 20,
   fontWeight: FontWeight.w600,
 );
@@ -121,7 +150,7 @@ double kKgsSliderMinValue = 0;
 double kKgsSliderMaxValue = 160;
 // Weight (Pounds) Slider Minimum & Maximum Values.
 double kLbsSliderMinValue = 0;
-double kLbsSliderMaxValue = 353;
+double kLbsSliderMaxValue = 250;
 
 /// 10) List of Constant values used in the CALCULATE BUTTON ROW.
 // Reset Button's Roundness values.
@@ -137,15 +166,30 @@ BorderRadius kCalculateButtonRoundness = BorderRadius.circular(22);
 double kCalculateButtonHeight = 45;
 double kCalculateButtonWidth = 45;
 
-/// 11) List of Constant values used in the BMI Result Label.
+/// 11) List of Constant values used in the ALERT DIALOGUE box.
+// Alert Dialogue Card's Vertical & Horizontal Padding values.
+double kAlertDialogueCardVerticalPadding = 16;
+double kAlertDialogueCardHorizontalPadding = 16;
+// Alert Dialogue Card's Roundness.
+BorderRadius kAlertDialogueRoundness = BorderRadius.circular(22);
+// Alert Dialogue Card's Heading Font Size
+double kAlertDialogueHeadingFontSize = 18;
+// Alert Dialogue Card's Error Text Font Size
+double kAlertDialogueErrorFontSize = 14;
+// Alert Dialogue Card's Call-to-Action Button Vertical & Horizontal Padding values.
+double kAlertDialogueOkButtonVerticalPadding = 10;
+double kAlertDialogueOkButtonHorizontalPadding = 50;
+
+/// 12) List of Constant values used in the BMI Result Label.
 // BMI Result Label Widget's Border Roundness values.
 BorderRadius kBMIResultLabelRoundness = BorderRadius.circular(22);
 // BMI Result Label Widget's Vertical & Horizontal Padding values.
 double kBMIResultLabelVerticalPadding = 4;
 double kBMIResultLabelHorizontalPadding = 16;
 
-/// 12) List of Constant values used in the inference of BMI Results.
+/// 13) List of Constant values used in the inference of BMI Results.
 // BMI Underweight, Normal ,Overweight Range values.
 double kBMIUnderWeightLimit = 18.4;
 double kBMINormalLimit = 24.9;
-double kBMIOverWeightLimit = 50;
+double kBMISlightlyOverWeightLimit = 39.9;
+double kBMIOverWeightLimit = 60;
