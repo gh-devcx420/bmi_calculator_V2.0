@@ -1,5 +1,24 @@
-enum Gender { none, male, female }
+enum Gender {
+  none,
+  male,
+  female,
+}
 
-enum HeightMetric { feetinches, cms }
+enum HeightMetric {
+  feetinches,
+  cms,
+}
 
-enum WeightMetric { kgs, pounds }
+enum WeightMetric {
+  kgs,
+  pounds,
+}
+
+enum ResultInference {
+  none,
+  underweight,
+  normal,
+  slightlyOverweight,
+  overweight,
+  unrealisticInputs,
+}

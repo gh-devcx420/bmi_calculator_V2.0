@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 ///BMI Common Widgets: These Widgets are customizable.
-// 1) General APP BACKGROUND GRADIENT Container for BMI Calculator App.
+// 1) General APP BACKGROUND GRADIENT CONTAINER for BMI Calculator App.
 class BMIBackgroundGradientContainer extends StatelessWidget {
   const BMIBackgroundGradientContainer({
     required this.currentScreen,
@@ -16,13 +16,13 @@ class BMIBackgroundGradientContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(10),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Color(0xff001894),
-            Color(0xff000c42),
+            kPrimaryBlue,
+            kSecondaryBlue,
           ],
         ),
       ),
@@ -31,12 +31,13 @@ class BMIBackgroundGradientContainer extends StatelessWidget {
   }
 }
 
-// 2) General APP BAR for BMI Calculator App.
+// 2) APP BAR for BMI Calculator App.
 class BMIAppBar extends StatelessWidget {
   const BMIAppBar({
     required this.leadingIcon,
     required this.actionsIcon,
     required this.appBarLabel,
+    required this.onActionsIconTap,
     super.key,
   });
 
@@ -44,35 +45,48 @@ class BMIAppBar extends StatelessWidget {
   final IconData? actionsIcon;
   final String appBarLabel;
 
+  final Function(BuildContext) onActionsIconTap;
+
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        kHorizontalGap4,
-        Icon(
-          leadingIcon,
-          color: kPrimaryWhite,
-          size: kAppBarIconSize,
-        ),
-        kHorizontalGap8,
-        Text(
-          appBarLabel,
-          style: kAppBarTitleTextStyle,
-        ),
-        const Spacer(),
-        Icon(
-          actionsIcon,
-          color: kPrimaryWhite,
-          size: kAppBarHelpIconSize,
-        ),
-        kHorizontalGap8,
-      ],
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        vertical: kAppBarVerticalPadding,
+        horizontal: kAppBarHorizontalPadding,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          kHorizontalGap4,
+          Icon(
+            leadingIcon,
+            color: kPrimaryWhite,
+            size: kAppBarIconSize,
+          ),
+          kHorizontalGap8,
+          Text(
+            appBarLabel,
+            style: kAppBarTitleTextStyle,
+          ),
+          const Spacer(),
+          GestureDetector(
+            onTap: () {
+              onActionsIconTap(context);
+            },
+            child: Icon(
+              actionsIcon,
+              color: kPrimaryWhite,
+              size: kAppBarHelpIconSize,
+            ),
+          ),
+          kHorizontalGap8,
+        ],
+      ),
     );
   }
 }
 
-// 3) General Tile Widget to Select, Accept & Display GENDER Selection.
+// 3) TILE WIDGET to Select, Accept & Display GENDER Selection.
 class BMITile extends StatelessWidget {
   const BMITile({
     super.key,
@@ -112,7 +126,7 @@ class BMITile extends StatelessWidget {
   }
 }
 
-// 4) General Button Widget to Select SI Unit of HEIGHT & WEIGHT SI Units respectively,.
+// 4) BUTTON WIDGET to Select SI Unit of HEIGHT & WEIGHT SI Units respectively,.
 class BMIInputMetricSelectorButton extends StatelessWidget {
   const BMIInputMetricSelectorButton({
     super.key,
@@ -128,7 +142,7 @@ class BMIInputMetricSelectorButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         vertical: kInputMetricSelectorButtonVerticalPadding,
         horizontal: kInputMetricSelectorButtonHorizontalPadding,
       ),
@@ -164,11 +178,11 @@ class BMITextDisplayChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         vertical: kLabelChipVerticalPadding,
         horizontal: kLabelChipHorizontalPadding,
       ),
-      margin: EdgeInsets.fromLTRB(0, 0, kLabelChipHorizontalMargin, 0),
+      margin: const EdgeInsets.fromLTRB(0, 0, kLabelChipHorizontalMargin, 0),
       decoration: BoxDecoration(
         color: chipBackgroundColour,
         borderRadius: kValueLabelChipRoundness,
@@ -199,11 +213,11 @@ class BMIValueDisplayChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         vertical: kLabelChipVerticalPadding,
         horizontal: kLabelChipHorizontalPadding,
       ),
-      margin: EdgeInsets.fromLTRB(0, 0, kLabelChipHorizontalMargin, 0),
+      margin: const EdgeInsets.fromLTRB(0, 0, kLabelChipHorizontalMargin, 0),
       decoration: BoxDecoration(
         color: chipColour,
         borderRadius: kValueLabelChipRoundness,
@@ -287,7 +301,7 @@ class BMISliderState extends State<BMISlider> {
   }
 }
 
-// 8) General BMI Button to perform onTap actions.
+// 8) BMI BUTTON WIDGET to perform onTap actions.
 class BMIButton extends StatelessWidget {
   const BMIButton({
     required this.onButtonTap,
@@ -334,6 +348,58 @@ class BMIButton extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+// 9) BMI RANGE DISPLAY WIDGET to display the clinically listed BMI Range values.
+class BMIClinicalRangeIndicator extends StatelessWidget {
+  const BMIClinicalRangeIndicator({
+    required this.resultRangeColour,
+    required this.resultRangeText,
+    required this.resultRangeTextStyle,
+    super.key,
+  });
+
+  final Color resultRangeColour;
+  final String resultRangeText;
+  final TextStyle resultRangeTextStyle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          height: 20,
+          width: 20,
+          margin: const EdgeInsets.symmetric(
+            vertical: kResultsRangeDisplayVerticalPadding,
+            horizontal: kResultsRangeDisplayHorizontalPadding,
+          ),
+          decoration: BoxDecoration(
+            color: resultRangeColour,
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        kHorizontalGap8,
+        Text(
+          resultRangeText,
+          style: resultRangeTextStyle,
+        ),
+      ],
+    );
+  }
+}
+
+// 10) DIVIDER WIDGET to visually separate the sections of the App.
+class BMIDivider extends StatelessWidget {
+  const BMIDivider({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Divider(
+      thickness: 2.2,
+      color: kPrimaryBlue,
     );
   }
 }

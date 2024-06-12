@@ -4,7 +4,6 @@ import 'package:bmi_calculator/screens/bmi_home.dart';
 import 'package:bmi_calculator/widgets/basic_widgets.dart';
 import 'package:bmi_calculator/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ResultCard extends StatefulWidget {
   const ResultCard({
@@ -16,125 +15,127 @@ class ResultCard extends StatefulWidget {
 }
 
 class _ResultCardState extends State<ResultCard> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        vertical: kCardVerticalPadding,
-        horizontal: kCardHorizontalPadding,
-      ),
-      decoration: BoxDecoration(
-        color: kPrimaryWhite,
-        borderRadius: kCardRoundness,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              kHorizontalGap8,
-              Text(
-                'BMI Inference Sheet',
-                style: kCardHeadingTextStyle,
-              ),
-            ],
-          ),
-          kVerticalGap8,
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
+  void showResultRangeHelpDialogue(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.black,
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              vertical: kAlertDialogueCardVerticalPadding,
+              horizontal: kAlertDialogueCardHorizontalPadding,
+            ),
+            decoration: BoxDecoration(
+              color: kPrimaryWhite,
+              borderRadius: kAlertDialogueRoundness,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                BMITextDisplayChip(
-                  chipText: currentInputValueObject.selectedGender ==
-                          Gender.male
-                      ? 'Male'
-                      : currentInputValueObject.selectedGender == Gender.female
-                          ? 'Female'
-                          : 'None',
-                  chipBackgroundColour: kPrimaryBlue,
+                Text(
+                  'Clinical BMI Range',
+                  style: kAlertDialogueHeadingTextStyle,
                 ),
-                BMIValueDisplayChip(
-                  chipValue: currentInputValueObject.ageSliderValue,
-                  chipText: 'Years',
-                  chipColour: kPrimaryBlue,
+                kVerticalGap10,
+                kVerticalGap10,
+                BMIClinicalRangeIndicator(
+                  resultRangeText: 'Underweight : 0 - $kBMIUnderWeightLimit',
+                  resultRangeTextStyle:
+                      currentInputValueObject.bmiResultInference ==
+                              ResultInference.underweight
+                          ? kBMIResultRangeTextStyledEnabled
+                          : kBMIResultRangeTextStyledDisabled,
+                  resultRangeColour: kBMIUnderweightColour,
                 ),
-                if (inputHeightMetric == HeightMetric.feetinches)
-                  BMIValueDisplayChip(
-                    chipValue: currentInputValueObject.feetSliderValue,
-                    chipText: 'Feet',
-                    chipColour: kPrimaryBlue,
-                  ),
-                if (inputHeightMetric == HeightMetric.feetinches)
-                  BMIValueDisplayChip(
-                    chipValue: currentInputValueObject.inchSliderValue,
-                    chipText: 'Inches',
-                    chipColour: kPrimaryBlue,
-                  ),
-                if (inputHeightMetric == HeightMetric.cms)
-                  BMIValueDisplayChip(
-                    chipValue: currentInputValueObject.cmsSliderValue,
-                    chipText: 'Cms',
-                    chipColour: kPrimaryBlue,
-                  ),
-                if (inputWeightMetric == WeightMetric.kgs)
-                  BMIValueDisplayChip(
-                    chipValue: currentInputValueObject.kgsSliderValue,
-                    chipText: 'Kgs',
-                    chipColour: kPrimaryBlue,
-                  ),
-                if (inputWeightMetric == WeightMetric.pounds)
-                  BMIValueDisplayChip(
-                    chipValue: currentInputValueObject.lbsSliderValue,
-                    chipText: 'Lbs',
-                    chipColour: kPrimaryBlue,
-                  ),
+                BMIClinicalRangeIndicator(
+                  resultRangeText:
+                      'Normal : ${kBMIUnderWeightLimit + 0.1} - $kBMINormalLimit',
+                  resultRangeTextStyle:
+                      currentInputValueObject.bmiResultInference ==
+                              ResultInference.normal
+                          ? kBMIResultRangeTextStyledEnabled
+                          : kBMIResultRangeTextStyledDisabled,
+                  resultRangeColour: kBMINormalColour,
+                ),
+                BMIClinicalRangeIndicator(
+                  resultRangeText:
+                      'Slightly Overweight : ${kBMINormalLimit + 0.1} - $kBMISlightlyOverWeightLimit',
+                  resultRangeTextStyle:
+                      currentInputValueObject.bmiResultInference ==
+                              ResultInference.slightlyOverweight
+                          ? kBMIResultRangeTextStyledEnabled
+                          : kBMIResultRangeTextStyledDisabled,
+                  resultRangeColour: kBMISlightlyOverWeightColour,
+                ),
+                BMIClinicalRangeIndicator(
+                  resultRangeText:
+                      'Overweight : ${kBMISlightlyOverWeightLimit + 0.1} & Above',
+                  resultRangeTextStyle:
+                      currentInputValueObject.bmiResultInference ==
+                              ResultInference.overweight
+                          ? kBMIResultRangeTextStyledEnabled
+                          : kBMIResultRangeTextStyledDisabled,
+                  resultRangeColour: kBMIOverWeightColour,
+                ),
               ],
             ),
           ),
-          kVerticalGap8,
-          Divider(
-            thickness: 2.2,
-            color: kPrimaryBlue,
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            vertical: kCardVerticalPadding,
+            horizontal: kCardHorizontalPadding,
           ),
-          kVerticalGap8,
-          Row(
+          decoration: BoxDecoration(
+            color: kPrimaryWhite,
+            borderRadius: kCardRoundness,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              kHorizontalGap8,
-              Text(
-                'Your result is :',
-                style: kCardHeadingTextStyle,
+              Row(
+                children: [
+                  kHorizontalGap8,
+                  Text(
+                    'BMI Inference Sheet',
+                    style: kCardHeadingTextStyle,
+                  ),
+                ],
               ),
-              kHorizontalGap8,
-              Text(
-                currentInputValueObject.bmiResultInference,
-                style: GoogleFonts.robotoCondensed(
-                  color: currentInputValueObject.bmiResultColour,
-                  fontSize: kCardTitleFontSize,
-                  fontWeight: FontWeight.w600,
-                ),
+              kVerticalGap8,
+              const BMISelectedInputValueDisplayRow(),
+              kVerticalGap8,
+              const BMIDivider(),
+              kVerticalGap8,
+              BMICardSectionHeaderWithIndicatorText(
+                resultHelpDialogue: showResultRangeHelpDialogue,
               ),
-              const Spacer(),
-              Icon(
-                Icons.help,
-                color: kPrimaryBlue,
+              kVerticalGap8,
+              Row(
+                children: [
+                  const BMIResultLabel(),
+                  kHorizontalGap8,
+                  const Expanded(
+                    child: BMIResultGauge(),
+                  ),
+                ],
               ),
-              kHorizontalGap8
+              kVerticalGap8,
+              const BMIDivider(),
+              kVerticalGap8,
+              const BMIResultInformation(),
             ],
           ),
-          kVerticalGap8,
-          kVerticalGap4,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const BMIResultLabel(),
-              kHorizontalGap8,
-              const Expanded(
-                child: BMIResultGauge(),
-              ),
-            ],
-          ),
-        ],
+        ),
       ),
     );
   }

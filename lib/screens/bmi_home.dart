@@ -16,7 +16,9 @@ class CurrentInputValues {
   double lbsSliderValue;
   double bmiResult;
   Color bmiResultColour;
-  String bmiResultInference;
+  String bmiResultInferenceText;
+  ResultInference bmiResultInference;
+  bool unrealisticInputsBoolean;
 
   CurrentInputValues({
     this.selectedGender = Gender.none,
@@ -28,13 +30,15 @@ class CurrentInputValues {
     this.lbsSliderValue = 0,
     this.bmiResult = 0,
     this.bmiResultColour = Colors.grey,
-    this.bmiResultInference = '',
+    this.bmiResultInferenceText = '',
+    this.bmiResultInference = ResultInference.none,
+    this.unrealisticInputsBoolean = false,
   });
 }
 
 CurrentInputValues currentInputValueObject = CurrentInputValues();
-HeightMetric inputHeightMetric = HeightMetric.feetinches;
-WeightMetric inputWeightMetric = WeightMetric.kgs;
+HeightMetric currentHeightMetric = HeightMetric.feetinches;
+WeightMetric currentWeightMetric = WeightMetric.kgs;
 
 class BmiHome extends StatefulWidget {
   const BmiHome({
@@ -103,6 +107,11 @@ class _BmiHomeState extends State<BmiHome> {
       currentInputValueObject.cmsSliderValue = 0;
       currentInputValueObject.kgsSliderValue = 0;
       currentInputValueObject.lbsSliderValue = 0;
+      currentInputValueObject.bmiResult = 0;
+      currentInputValueObject.bmiResultColour = Colors.grey;
+      currentInputValueObject.bmiResultInferenceText = '';
+      currentInputValueObject.bmiResultInference = ResultInference.none;
+      currentInputValueObject.unrealisticInputsBoolean = false;
     });
   }
 
@@ -115,8 +124,9 @@ class _BmiHomeState extends State<BmiHome> {
           currentInputValueObject.cmsSliderValue / 100;
       double weightInKgsFromPounds =
           currentInputValueObject.lbsSliderValue / 2.20462;
-      if (inputHeightMetric == HeightMetric.feetinches) {
-        if (inputWeightMetric == WeightMetric.kgs) {
+
+      if (currentHeightMetric == HeightMetric.feetinches) {
+        if (currentWeightMetric == WeightMetric.kgs) {
           currentInputValueObject.bmiResult =
               currentInputValueObject.kgsSliderValue /
                   pow(
@@ -131,7 +141,7 @@ class _BmiHomeState extends State<BmiHome> {
               );
         }
       } else {
-        if (inputWeightMetric == WeightMetric.kgs) {
+        if (currentWeightMetric == WeightMetric.kgs) {
           currentInputValueObject.bmiResult =
               currentInputValueObject.kgsSliderValue /
                   pow(
@@ -139,7 +149,6 @@ class _BmiHomeState extends State<BmiHome> {
                     2,
                   );
         } else {
-          print(weightInKgsFromPounds);
           currentInputValueObject.bmiResult = weightInKgsFromPounds /
               pow(
                 heightInMetersFromCms,
@@ -148,34 +157,107 @@ class _BmiHomeState extends State<BmiHome> {
         }
       }
 
-      if (currentInputValueObject.bmiResult <= kBMIUnderWeightLimit) {
+      if (currentInputValueObject.bmiResult < 10) {
+        currentInputValueObject.bmiResultColour = kBMIErrorColour;
+        currentInputValueObject.bmiResultInference =
+            ResultInference.unrealisticInputs;
+        currentInputValueObject.unrealisticInputsBoolean = true;
+        currentInputValueObject.bmiResultInferenceText = 'Unrealistic Inputs';
+      } else if (currentInputValueObject.bmiResult <= kBMIUnderWeightLimit) {
+        currentInputValueObject.bmiResultInferenceText = 'Underweight';
+        currentInputValueObject.bmiResultInference =
+            ResultInference.underweight;
         currentInputValueObject.bmiResultColour = kBMIUnderweightColour;
-        currentInputValueObject.bmiResultInference = 'Underweight';
+        currentInputValueObject.unrealisticInputsBoolean = false;
       } else if (currentInputValueObject.bmiResult <= kBMINormalLimit) {
+        currentInputValueObject.bmiResultInferenceText = 'Normal';
+        currentInputValueObject.bmiResultInference = ResultInference.normal;
         currentInputValueObject.bmiResultColour = kBMINormalColour;
-        currentInputValueObject.bmiResultInference = 'Normal';
+        currentInputValueObject.unrealisticInputsBoolean = false;
       } else if (currentInputValueObject.bmiResult <=
           kBMISlightlyOverWeightLimit) {
+        currentInputValueObject.bmiResultInferenceText = 'Slightly Overweight';
+        currentInputValueObject.bmiResultInference =
+            ResultInference.slightlyOverweight;
         currentInputValueObject.bmiResultColour = kBMISlightlyOverWeightColour;
-        currentInputValueObject.bmiResultInference = 'Slightly Overweight';
-      } else {
+        currentInputValueObject.unrealisticInputsBoolean = false;
+      } else if (currentInputValueObject.bmiResult <= kBMIOverWeightLimit) {
+        currentInputValueObject.bmiResultInferenceText = 'Overweight';
+        currentInputValueObject.bmiResultInference = ResultInference.overweight;
         currentInputValueObject.bmiResultColour = kBMIOverWeightColour;
-        currentInputValueObject.bmiResultInference = 'Overweight';
+        currentInputValueObject.unrealisticInputsBoolean = false;
+      } else {
+        currentInputValueObject.bmiResultInferenceText = 'Unrealistic Inputs';
+        currentInputValueObject.bmiResultInference =
+            ResultInference.unrealisticInputs;
+        currentInputValueObject.bmiResultColour = kBMIErrorColour;
+        currentInputValueObject.unrealisticInputsBoolean = true;
       }
     });
+  }
+
+  void showBMIHelpDialogue(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.black,
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              vertical: kAlertDialogueCardVerticalPadding,
+              horizontal: kAlertDialogueCardHorizontalPadding,
+            ),
+            decoration: BoxDecoration(
+              color: kPrimaryWhite,
+              borderRadius: kAlertDialogueRoundness,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Body Mass Index',
+                  style: kAlertDialogueHeadingTextStyle,
+                ),
+                kVerticalGap10,
+                kVerticalGap10,
+                Image.asset('assets/images/BMI.png'),
+                kVerticalGap10,
+                Text(
+                  kBMIHelpText,
+                  style: kBMIHelpInfoTextStyle,
+                ),
+                kVerticalGap10,
+                Text(
+                  kBMIFormulaText,
+                  style: kBMIHelpInfoTextStyle.copyWith(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                kVerticalGap10,
+                Text(
+                  kBMIFormulaInference,
+                  style: kBMIHelpInfoTextStyle,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        /// AppBar Row contains App Title & App Settings.
-        const BMIAppBar(
+        /// AppBar Row contains App Title & Help Icon.
+        BMIAppBar(
           leadingIcon: Icons.person_pin_outlined,
           appBarLabel: 'BMI Calculator',
           actionsIcon: Icons.help,
+          onActionsIconTap: showBMIHelpDialogue,
         ),
-        kVerticalGap8,
 
         /// Gender Tiles to Select (Male/Female).
         GenderSelectionCardRow(

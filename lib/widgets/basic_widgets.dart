@@ -4,6 +4,8 @@ import 'package:bmi_calculator/screens/bmi_home.dart';
 import 'package:bmi_calculator/screens/result_screen.dart';
 import 'package:bmi_calculator/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 /// BMI Basic Widgets: These Widgets are specific.
@@ -62,7 +64,7 @@ class BMICalculateButton extends StatelessWidget {
       builder: (BuildContext context) {
         return Dialog(
           child: Container(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               vertical: kAlertDialogueCardVerticalPadding,
               horizontal: kAlertDialogueCardHorizontalPadding,
             ),
@@ -74,7 +76,7 @@ class BMICalculateButton extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Re-Check Your Values',
+                  'Re-Check Your Inputs',
                   style: kAlertDialogueHeadingTextStyle,
                 ),
                 kVerticalGap10,
@@ -115,7 +117,7 @@ class BMICalculateButton extends StatelessWidget {
                       onButtonTap: () {
                         Navigator.of(context).pop();
                       },
-                      buttonLabelText: 'Ok',
+                      buttonLabelText: 'OK',
                       buttonLabelTextColour: kPrimaryWhite,
                       buttonLabelTextFontSize: 16,
                       buttonRoundness: 22,
@@ -171,7 +173,109 @@ class BMICalculateButton extends StatelessWidget {
   }
 }
 
-// 3) LABEL WIDGET to Display the BMI RESULTS SCORE.
+// 3) ROW WIDGET to display the Selected input values in the BMI Inference Sheet.
+class BMISelectedInputValueDisplayRow extends StatelessWidget {
+  const BMISelectedInputValueDisplayRow({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          BMITextDisplayChip(
+            chipText: currentInputValueObject.selectedGender == Gender.male
+                ? 'Male'
+                : currentInputValueObject.selectedGender == Gender.female
+                    ? 'Female'
+                    : 'None',
+            chipBackgroundColour: kPrimaryBlue,
+          ),
+          BMIValueDisplayChip(
+            chipValue: currentInputValueObject.ageSliderValue,
+            chipText: 'Years',
+            chipColour: kPrimaryBlue,
+          ),
+          if (currentHeightMetric == HeightMetric.feetinches)
+            BMIValueDisplayChip(
+              chipValue: currentInputValueObject.feetSliderValue,
+              chipText: 'Feet',
+              chipColour: kPrimaryBlue,
+            ),
+          if (currentHeightMetric == HeightMetric.feetinches)
+            BMIValueDisplayChip(
+              chipValue: currentInputValueObject.inchSliderValue,
+              chipText: 'Inches',
+              chipColour: kPrimaryBlue,
+            ),
+          if (currentHeightMetric == HeightMetric.cms)
+            BMIValueDisplayChip(
+              chipValue: currentInputValueObject.cmsSliderValue,
+              chipText: 'Cms',
+              chipColour: kPrimaryBlue,
+            ),
+          if (currentWeightMetric == WeightMetric.kgs)
+            BMIValueDisplayChip(
+              chipValue: currentInputValueObject.kgsSliderValue,
+              chipText: 'Kgs',
+              chipColour: kPrimaryBlue,
+            ),
+          if (currentWeightMetric == WeightMetric.pounds)
+            BMIValueDisplayChip(
+              chipValue: currentInputValueObject.lbsSliderValue,
+              chipText: 'Lbs',
+              chipColour: kPrimaryBlue,
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+// 4) ROW WIDGET to display the Card Section Name, BMI Result Inference & Actions Icon.
+class BMICardSectionHeaderWithIndicatorText extends StatelessWidget {
+  const BMICardSectionHeaderWithIndicatorText({
+    required this.resultHelpDialogue,
+    super.key,
+  });
+
+  final Function(BuildContext) resultHelpDialogue;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        kHorizontalGap8,
+        Text(
+          'Your BMI is :',
+          style: kCardHeadingTextStyle,
+        ),
+        kHorizontalGap8,
+        Text(
+          currentInputValueObject.bmiResultInferenceText,
+          style: GoogleFonts.robotoCondensed(
+            color: currentInputValueObject.bmiResultColour,
+            fontSize: kCardTitleFontSize,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        const Spacer(),
+        GestureDetector(
+          onTap: () {
+            resultHelpDialogue(context);
+          },
+          child: Icon(
+            Icons.help,
+            color: kPrimaryBlue,
+          ),
+        ),
+        kHorizontalGap8
+      ],
+    );
+  }
+}
+
+// 5) LABEL WIDGET to Display the BMI RESULTS SCORE.
 class BMIResultLabel extends StatelessWidget {
   const BMIResultLabel({super.key});
 
@@ -182,7 +286,7 @@ class BMIResultLabel extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             vertical: kBMIResultLabelVerticalPadding,
             horizontal: kBMIResultLabelHorizontalPadding,
           ),
@@ -202,7 +306,7 @@ class BMIResultLabel extends StatelessWidget {
   }
 }
 
-// 4) GAUGE WIDGET to Display the BMI RESULTS SCORE in a visibly neat Gauge Scale.
+// 6) GAUGE WIDGET to Display the BMI RESULTS SCORE in a visibly neat Gauge Scale.
 class BMIResultGauge extends StatelessWidget {
   const BMIResultGauge({super.key});
 
@@ -212,11 +316,11 @@ class BMIResultGauge extends StatelessWidget {
       showLabels: false,
       showTicks: false,
       showAxisTrack: false,
-      minimum: 0,
+      minimum: 10,
       maximum: kBMIOverWeightLimit,
       ranges: [
         LinearGaugeRange(
-          startValue: 0,
+          startValue: 10,
           endValue: kBMIUnderWeightLimit,
           color: kBMIUnderweightColour,
         ),
@@ -245,6 +349,145 @@ class BMIResultGauge extends StatelessWidget {
           animationType: LinearAnimationType.easeInCirc,
           position: LinearElementPosition.outside,
         ),
+      ],
+    );
+  }
+}
+
+// 7) Result Information Widget to display the Information & Tips Text based on the BMI Result.
+class BMIResultInformation extends StatelessWidget {
+  const BMIResultInformation({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ///Information Section.
+        Row(
+          children: [
+            kHorizontalGap4,
+            Icon(
+              FontAwesomeIcons.commentMedical,
+              size: 18,
+              color: kPrimaryBlue,
+            ),
+            kHorizontalGap8,
+            Text(
+              'Information :',
+              style: kCardHeadingTextStyle,
+            ),
+          ],
+        ),
+        kVerticalGap8,
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            kHorizontalGap8,
+            if (currentInputValueObject.bmiResultInference ==
+                ResultInference.underweight)
+              Expanded(
+                child: Text(
+                  kBMIUnderweightInformationText,
+                  style: kBMIInferenceSheetBodyTextStyle,
+                ),
+              ),
+            if (currentInputValueObject.bmiResultInference ==
+                ResultInference.normal)
+              Expanded(
+                child: Text(
+                  kBMINormalInformationText,
+                  style: kBMIInferenceSheetBodyTextStyle,
+                ),
+              ),
+            if (currentInputValueObject.bmiResultInference ==
+                ResultInference.slightlyOverweight)
+              Expanded(
+                child: Text(
+                  kBMISlightlyOverweightInformationText,
+                  style: kBMIInferenceSheetBodyTextStyle,
+                ),
+              ),
+            if (currentInputValueObject.bmiResultInference ==
+                ResultInference.overweight)
+              Expanded(
+                child: Text(
+                  kBMIOverweightInformationText,
+                  style: kBMIInferenceSheetBodyTextStyle,
+                ),
+              ),
+            if (currentInputValueObject.bmiResultInference ==
+                ResultInference.unrealisticInputs)
+              Expanded(
+                child: Text(
+                  'The BMI you entered suggests an unlikely combination of height and weight. It\'s possible there may be an error in the values entered. Please confirm that your height and weight are entered correctly and try again.',
+                  style: kBMIInferenceSheetBodyTextStyle,
+                ),
+              ),
+          ],
+        ),
+        if (!currentInputValueObject.unrealisticInputsBoolean) kVerticalGap8,
+        if (!currentInputValueObject.unrealisticInputsBoolean)
+          const BMIDivider(),
+        if (!currentInputValueObject.unrealisticInputsBoolean) kVerticalGap8,
+
+        /// Tips Section.
+        if (!currentInputValueObject.unrealisticInputsBoolean)
+          Row(
+            children: [
+              kHorizontalGap4,
+              Icon(
+                FontAwesomeIcons.solidLightbulb,
+                size: 18,
+                color: kPrimaryBlue,
+              ),
+              kHorizontalGap4,
+              Text(
+                'Health Tips :',
+                style: kCardHeadingTextStyle,
+              ),
+            ],
+          ),
+        if (!currentInputValueObject.unrealisticInputsBoolean) kVerticalGap8,
+        if (!currentInputValueObject.unrealisticInputsBoolean)
+          Row(
+            //Tips Row
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              kHorizontalGap8,
+              if (currentInputValueObject.bmiResultInference ==
+                  ResultInference.underweight)
+                Expanded(
+                  child: Text(
+                    kBMIUnderweightTipsText,
+                    style: kBMIInferenceSheetBodyTextStyle,
+                  ),
+                ),
+              if (currentInputValueObject.bmiResultInference ==
+                  ResultInference.normal)
+                Expanded(
+                  child: Text(
+                    kBMINormalTipsText,
+                    style: kBMIInferenceSheetBodyTextStyle,
+                  ),
+                ),
+              if (currentInputValueObject.bmiResultInference ==
+                  ResultInference.slightlyOverweight)
+                Expanded(
+                  child: Text(
+                    kBMISlightlyOverweightTipsText,
+                    style: kBMIInferenceSheetBodyTextStyle,
+                  ),
+                ),
+              if (currentInputValueObject.bmiResultInference ==
+                  ResultInference.overweight)
+                Expanded(
+                  child: Text(
+                    kBMIOverweightTipsText,
+                    style: kBMIInferenceSheetBodyTextStyle,
+                  ),
+                ),
+            ],
+          ),
       ],
     );
   }

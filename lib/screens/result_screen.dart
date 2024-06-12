@@ -18,10 +18,11 @@ class _ResultScreenState extends State<ResultScreen> {
         currentScreen: SafeArea(
           child: Column(
             children: [
-              const BMIAppBar(
+              BMIAppBar(
                 leadingIcon: Icons.bar_chart,
                 appBarLabel: 'Results',
                 actionsIcon: null,
+                onActionsIconTap: (context) {},
               ),
               kVerticalGap8,
               const ResultCard(),
