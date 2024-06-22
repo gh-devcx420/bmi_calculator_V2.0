@@ -8,11 +8,11 @@ A simple Body Mass Index Calculator with a neat & simple UI.
 ![App Screenshot](https://i.ibb.co/Q9fNFj0/BMI-v2-0-Screenshot-1.png)
 ![App Screenshot](https://i.ibb.co/pKMP5F7/BMI-v2-0-Screenshot-2.png)
 
-## ⚙ Tech Stack
+## ⚙️ Tech Stack
 
-**Code:** Flutter, Dart.
+**Code:** Flutter, Dart, Android Studio.
 
-**Logo & Screenshots:** Android Studio, Adobe Photoshop, Microsoft Co-Pilot.
+**Logo & Screenshots:** Adobe Photoshop, Microsoft Co-Pilot.
 
 ## 📖 Lessons
 
