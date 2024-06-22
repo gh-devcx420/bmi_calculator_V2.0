@@ -26,7 +26,7 @@ A simple Body Mass Index Calculator with a neat & simple UI.
 - [Colour Palette](https://www.notion.so/sricharanprabhakar/Blueberry-Vanilla-Frost-98b8405882004f1faeacf2d7f93feddd?pvs=4)
 - [My Notes](https://sricharanprabhakar.notion.site/Flutter-Dart-3f7e80a2bb594ad5a53fa9fff551f22a)
 
-## 📝 Packages Used
+## 📂 Packages Used
 
 - [Google Fonts](https://pub.dev/packages/google_fonts)
 - [Font Awesome Flutter](https://pub.dev/packages/font_awesome_flutter)
