@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 /// 1) List of Constant COLOUR VALUES used in the APP.
-Color kPrimaryWhite = Colors.white;
-Color kSecondaryWhite = const Color(0xc7ffffff);
+Color kPrimaryWhite = const Color(0xdeffffff);
+Color kSecondaryWhite = const Color(0x99ffffff);
 Color kPrimaryBlue = const Color(0xff051052);
 Color kSecondaryBlue = const Color(0xff000c42);
 
