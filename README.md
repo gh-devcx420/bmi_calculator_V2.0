@@ -20,7 +20,7 @@ A simple Body Mass Index Calculator with a neat & simple UI.
 - Responsive User Interface.
 - State Management.
 
-## 📝 Links
+## 🔗 Links
 
 - [Application](https://drive.google.com/drive/folders/19iXMIRMYSkORbpExAyjhwYVGjt2kmLon?usp=drive_link)
 - [Colour Palette](https://www.notion.so/sricharanprabhakar/Blueberry-Vanilla-Frost-98b8405882004f1faeacf2d7f93feddd?pvs=4)
