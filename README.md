@@ -22,7 +22,7 @@ A simple Body Mass Index Calculator with a neat & simple UI.
 
 ## 🔗 Links
 
-- [Application](https://drive.google.com/drive/folders/19iXMIRMYSkORbpExAyjhwYVGjt2kmLon?usp=drive_link)
+- [Application](https://drive.google.com/drive/folders/17lEOtBw1qY7emOO0nBO7jWEf0xGNHHFx?usp=sharing)
 - [Colour Palette](https://www.notion.so/sricharanprabhakar/Blueberry-Vanilla-Frost-98b8405882004f1faeacf2d7f93feddd?pvs=4)
 - [My Notes](https://sricharanprabhakar.notion.site/Flutter-Dart-3f7e80a2bb594ad5a53fa9fff551f22a)
 
